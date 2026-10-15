@@ -42,7 +42,7 @@ sql/
   datos.sql          4 categorías y 12 actividades
 includes/
   db.php             ÚNICO lugar que crea la conexión PDO
-  auth.php           inicia sesión y redirige a login si no hay usuario
+  auth.php           inicia sesión y redirige a login si no hay usuario (solo                           páginas privadas)
   cabecera.php       cabecera y navegación comunes
   pie.php            pie común
 css/  js/  img/
@@ -67,7 +67,19 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 3. Implementa en pasos pequeños; no toques nada que no sea de la tarea.
 4. Comprueba a mano los criterios «Hecho cuando» de la tarea, incluidos los casos de error.
 5. Marca la tarea `[x]` y haz commit indicando qué requisitos (RF-xx) cumple.
-6. Si aparece una decisión que no está acordada: **para**, vuelve a `specs/spec.md`, anótala en «Dudas abiertas» y pregunta.
+6. Si falta información o algo no encaja, clasifica el caso:
+   a) Está en la spec (RF, RNF, CL o duda cerrada): impleméntalo.
+   b) Hay una duda abierta con valor por defecto: aplica ese valor, cita su ID
+      (DA-xx) en el commit y avisa al terminar la tarea.
+   c) No está en ninguna parte: PARA esa parte. Añade una duda nueva en
+      `spec.md` §3.3 con tu propuesta de valor por defecto y pregunta. Continúa
+      solo con lo que no depende de ella.
+   d) La spec parece errónea, incompleta o contradice la constitución: PARA. No
+      corrijas el código por tu cuenta: propón el cambio en la spec, espera
+      aprobación y actualiza después spec → plan → tasks → código.
+   Solo el equipo cierra una duda: la IA propone, no decide. Los detalles internos
+   que no cambian lo que ve el usuario (nombres de variables, estructura de
+   funciones) los decides tú.
 
 ## 6. Qué leer según la tarea
 

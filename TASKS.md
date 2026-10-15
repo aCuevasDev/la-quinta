@@ -27,7 +27,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 **Definición de Hecho F1:** la base de datos se crea desde cero con dos importaciones y `db.php` es el único sitio donde se abre la conexión.
 
 ## F2 · Acceso
-- [ ] F2-01 · `includes/auth.php`: inicia sesión PHP y redirige a `login.php` si no hay `$_SESSION['usuario_id']` → RF-07 · abrir una página privada sin sesión lleva a `login.php`
+- [ ] F2-01 · `includes/auth.php`: inicia sesión PHP y redirige a `login.php` si no hay `$_SESSION['usuario_id']` solo lo incluyen las páginas privadas → RF-07 · abrir una página privada sin sesión lleva a `login.php`
 - [ ] F2-02 · `registro.php`: formulario con nombre, apellidos y contraseña, validación en servidor (campos vacíos y longitud) → RF-04, RF-06 · cada campo vacío indica cuál falta
 - [ ] F2-03 · Registro: guardar con `password_hash()` y rechazar nombre y apellidos duplicados → RF-04, RF-05 · usuario nuevo guardado con contraseña cifrada; el duplicado muestra error y no se crea
 - [ ] F2-04 · Registro: tras crear la cuenta, redirigir a `login.php` con mensaje de éxito → RF-04 · tras registrarse se llega a login con el aviso visible

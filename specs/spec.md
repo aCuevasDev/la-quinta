@@ -28,11 +28,12 @@
 - **RF-01:** CUANDO el usuario abra `login.php`, EL SISTEMA mostrará un formulario con nombre, apellidos y contraseña, y un enlace a la página de registro.
 - **RF-02:** CUANDO el usuario envíe credenciales correctas, EL SISTEMA iniciará su sesión y le llevará a `inicio.php`.
 - **RF-03:** SI las credenciales son incorrectas, ENTONCES EL SISTEMA mostrará un mensaje de error sin indicar qué dato ha fallado y no iniciará sesión.
-- **RF-04:** CUANDO el usuario envíe en `registro.php` un nombre, apellidos y contraseña válidos, EL SISTEMA creará la cuenta (con la contraseña cifrada) y le llevará a `login.php` con un mensaje de éxito.
-- **RF-05:** SI ya existe un usuario con el mismo nombre y apellidos, ENTONCES EL SISTEMA no creará la cuenta y mostrará un mensaje de error.
+- **RF-04:** CUANDO el usuario envíe en `registro.php` un nombre de 2 a 50 caracteres, unos apellidos de 2 a 80 (solo letras, espacios, guion y apóstrofo) y una contraseña de 8 a 64 caracteres, EL SISTEMA creará la cuenta (con la contraseña cifrada) y le llevará a `login.php` con un mensaje de éxito.
+- **RF-05:** SI ya existe un usuario con el mismo nombre y apellidos (sin distinguir mayúsculas, tildes ni espacios sobrantes), ENTONCES EL SISTEMA no creará la cuenta y mostrará un mensaje de error.
 - **RF-06:** SI algún campo del formulario de login o de registro está vacío, ENTONCES EL SISTEMA indicará cuál falta y no procesará el formulario.
 - **RF-07:** SI un usuario sin sesión abre una página privada, ENTONCES EL SISTEMA le redirigirá a `login.php`.
 - **RF-08:** CUANDO el usuario pulse «Cerrar sesión», EL SISTEMA cerrará su sesión y le llevará a `login.php`.
+- **RF-21:** SI el nombre, los apellidos o la contraseña no cumplen sus límites, ENTONCES EL SISTEMA indicará cuál falla y qué se espera, y no creará la cuenta.
 
 #### Inicio y actividades
 - **RF-09:** MIENTRAS el usuario tenga la sesión iniciada, EL SISTEMA mostrará en `inicio.php` las 4 categorías en tarjetas, cada una con su explicación breve y un botón «Ver detalles».
@@ -41,7 +42,7 @@
 #### Reserva
 - **RF-11:** CUANDO el usuario pulse «Reservar», EL SISTEMA mostrará `reserva.php` con la información completa de la actividad y un selector de día.
 - **RF-12:** SI el usuario confirma la reserva sin elegir día, ENTONCES EL SISTEMA mostrará un error y no creará la reserva.
-- **RF-13:** SI el día elegido es anterior a hoy, ENTONCES EL SISTEMA mostrará un error y no creará la reserva.
+- **RF-13:** SI el día elegido es anterior a hoy o no es una fecha válida, ENTONCES EL SISTEMA mostrará un error y no creará la reserva.
 - **RF-14:** SI el usuario ya tiene esa actividad reservada ese mismo día, ENTONCES EL SISTEMA no creará una reserva duplicada y mostrará un aviso.
 - **RF-15:** CUANDO el usuario confirme una reserva válida, EL SISTEMA la guardará asociada a su cuenta y le llevará a `mis_reservas.php`.
 
@@ -62,18 +63,19 @@
 
 ### 2.3 Casos límite
 
-| ID | Caso | Comportamiento esperado |
-|---|---|---|
-| CL-01 | Nombre o apellidos con tildes, ñ o espacios | Se guardan, se muestran y permiten iniciar sesión correctamente |
-| CL-02 | Abrir una página privada escribiendo la URL sin sesión | Redirige a `login.php` (RF-07) |
-| CL-03 | Reservar un día anterior a hoy, aunque se manipule el formulario | La reserva se rechaza en PHP (RF-13) |
-| CL-04 | Reservar dos veces la misma actividad el mismo día | Se avisa y no se duplica (RF-14) |
-| CL-05 | `categoria.php?id=` con un id que no existe o no es un número | Mensaje claro y enlace para volver a inicio |
-| CL-06 | `reserva.php?id=` con un id de actividad que no existe | Mensaje claro y enlace para volver a inicio |
-| CL-07 | Intentar ver reservas de otro usuario cambiando datos en la URL o en el formulario | Nunca se muestran: se filtra siempre por la sesión (RF-16) |
-| CL-08 | Enviar un formulario con campos solo con espacios | Se tratan como vacíos (RF-06) |
-| CL-09 | Intentar registrarse con nombre y apellidos que ya existen, cambiando mayúsculas o minúsculas | Se detecta como duplicado (RF-05) |
-| CL-10 | Cerrar la sesión y pulsar «Atrás» en el navegador | Al recargar o navegar, las páginas privadas vuelven a pedir login |
+| ID    | Caso                                                                                              | Comportamiento esperado                                                |
+| ----- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| CL-01 | Nombre o apellidos con tildes, ñ o espacios                                                       | Se guardan, se muestran y permiten iniciar sesión correctamente        |
+| CL-02 | Abrir una página privada escribiendo la URL sin sesión                                            | Redirige a `login.php` (RF-07)                                         |
+| CL-03 | Reservar un día anterior a hoy, aunque se manipule el formulario                                  | La reserva se rechaza en PHP (RF-13)                                   |
+| CL-04 | Reservar dos veces la misma actividad el mismo día                                                | Se avisa y no se duplica (RF-14)                                       |
+| CL-05 | `categoria.php?id=` con un id que no existe o no es un número                                     | Mensaje claro y enlace para volver a inicio                            |
+| CL-06 | `reserva.php?id=` con un id de actividad que no existe                                            | Mensaje claro y enlace para volver a inicio                            |
+| CL-07 | Intentar ver reservas de otro usuario cambiando datos en la URL o en el formulario                | Nunca se muestran: se filtra siempre por la sesión (RF-16)             |
+| CL-08 | Enviar un formulario con campos solo con espacios                                                 | Se tratan como vacíos (RF-06)                                          |
+| CL-09 | Intentar registrarse con nombre y apellidos que ya existen, cambiando mayúsculas o minúsculas     | Se detecta como duplicado (RF-05)                                      |
+| CL-10 | Cerrar la sesión y pulsar «Atrás» en el navegador                                                 | Al recargar o navegar, las páginas privadas vuelven a pedir login      |
+| CL-11 | Enviar una fecha inexistente (31 de febrero) o con formato raro, aunque se manipule el formulario | Se rechaza en PHP con un mensaje claro y no se crea la reserva (RF-13) |
 
 ---
 
@@ -95,14 +97,16 @@ La web está terminada cuando:
 
 Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe asumir otra respuesta.**
 
-| ID | Duda | Valor por defecto | Estado |
-|---|---|---|---|
-| DA-01 | ¿El registro pide contraseña? | Sí (el login la exige) | Pendiente de confirmar |
-| DA-02 | ¿Pueden existir dos personas con el mismo nombre y apellidos? | No (`UNIQUE`); si pasa, hay que añadir otro identificador | Pendiente de decidir |
-| DA-03 | ¿Se puede cancelar una reserva? | No | Pendiente de decidir |
-| DA-04 | ¿Hay límite de personas por actividad y día? | No | Pendiente de decidir |
-| DA-05 | ¿Qué información lleva cada actividad (horario, lugar, precio)? | Nombre, descripción y categoría | Pendiente de decidir |
-| DA-06 | ¿Qué datos se muestran en el perfil además del nombre y apellidos? | Solo nombre y apellidos | Pendiente de decidir |
+| ID    | Duda                                                               | Valor por defecto                                                                                                 | Estado                                                                                                                                                                                     |
+| ----- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DA-01 | ¿El registro pide contraseña?                                      | Sí (el login la exige)                                                                                            | **Cerrada (15/10/2026):** sí; de 8 a 64 caracteres, sin reglas de complejidad. Ver RF-04 y RF-21                                                                                           |
+| DA-02 | ¿Pueden existir dos personas con el mismo nombre y apellidos?      | No (`UNIQUE`); si pasa, hay que añadir otro identificador                                                         | **Cerrada (15/10/2026):** no. Se comparan sin distinguir mayúsculas, tildes ni espacios sobrantes (collation `utf8mb4_unicode_ci`). Limitación asumida (plan D4). Ver RF-05, CL-01 y CL-09 |
+| DA-03 | ¿Se puede cancelar una reserva?                                    | No                                                                                                                | **Cerrada (15/10/2026):** no; fuera de alcance de esta versión                                                                                                                             |
+| DA-04 | ¿Hay límite de personas por actividad y día?                       | No                                                                                                                | **Cerrada (15/10/2026):** no; fuera de alcance de esta versión                                                                                                                             |
+| DA-05 | ¿Qué información lleva cada actividad (horario, lugar, precio)?    | Nombre, descripción y categoría                                                                                   | **Abierta.** Mientras tanto no se añaden horario, lugar ni precio. Conviene cerrarla antes de F1-01, porque cambia `schema.sql` y `datos.sql`                                              |
+| DA-06 | ¿Qué datos se muestran en el perfil además del nombre y apellidos? | Solo nombre y apellidos                                                                                           | **Cerrada (15/10/2026):** solo nombre y apellidos (RF-18)                                                                                                                                  |
+| DA-07 | ¿Qué se considera un nombre y apellidos válidos?                   | Nombre de 2 a 50 caracteres y apellidos de 2 a 80; solo letras (con tildes, ñ, ç, ü), espacios, guion y apóstrofo | **Cerrada (15/10/2026):** según el valor por defecto. Ver RF-04 y RF-21                                                                                                                    |
+| DA-08 | ¿Hasta cuánto tiempo vista se puede reservar?                      | Sin límite superior (solo se rechazan los días anteriores a hoy y las fechas inexistentes)                        | **Abierta.** Por decidir                                                                                                                                                                   |
 
 ---
 
@@ -131,7 +135,7 @@ Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe
 | RF-19           | F5-02                             |
 | RF-20           | F0-05, F5-03                      |
 | RNF-01 a RNF-05 | F0-04, F0-06, F6-01, F6-03, F6-04 |
-| CL-01 a CL-10   | F6-02                             |
+| CL-01 a CL-11   | F6-02                             |
 
 ---
 

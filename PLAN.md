@@ -40,7 +40,10 @@ La navegación común (RF-20) se incluye desde `cabecera.php` en todas las pági
 ### Módulos (`includes/`)
 
 - `db.php`: función que devuelve la conexión PDO (modo de errores por excepciones, juego de caracteres `utf8mb4`). Es el único sitio donde se abre la conexión.
-- `auth.php`: inicia la sesión PHP y, si no existe `$_SESSION['usuario_id']`, redirige a `login.php`. Se incluye en la primera línea de cada página privada.
+- `auth.php`: inicia la sesión PHP y, si no existe `$_SESSION['usuario_id']`,
+  redirige a `login.php`. Se incluye en la primera línea de cada página privada
+  y nunca en `login.php`, `registro.php` ni `logout.php`, que llaman a
+  `session_start()` por su cuenta (si no, se redirigirían a sí mismas en bucle).
 - `cabecera.php` y `pie.php`: HTML común, navegación y enlace «Saltar al contenido».
 
 ### Flujo de sesión
