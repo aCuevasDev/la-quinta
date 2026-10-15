@@ -15,11 +15,11 @@ Público con poca soltura digital. Prioridad: seguridad básica > claridad y acc
 | Capa                 | Decisión                                                       |
 | -------------------- | -------------------------------------------------------------- |
 | Servidor             | PHP 8 sin framework                                            |
-| Base de datos        | MySQL / MariaDB (relacional)                                   |
+| Base de datos        | MySQL (relacional)                                             |
 | Acceso a datos       | PDO con consultas preparadas                                   |
 | Front                | HTML5, CSS y JavaScript sin librerías                          |
 | Sesiones             | Sesiones de PHP (`$_SESSION`)                                  |
-| Entorno local        | [completar: XAMPP / Docker / `php -S localhost:8000`]          |
+| Entorno local        | XAMPP / Docker / `php -S localhost:8000`                       |
 | Control de versiones | Git + GitHub                                                   |
 | Pruebas              | Comprobación manual con los «Hecho cuando» de `specs/tasks.md` |
 
@@ -42,7 +42,7 @@ sql/
   datos.sql          4 categorías y 12 actividades
 includes/
   db.php             ÚNICO lugar que crea la conexión PDO
-  auth.php           inicia sesión y redirige a login si no hay usuario (solo                           páginas privadas)
+  auth.php           inicia sesión y redirige a login si no hay usuario (solo páginas privadas)
   cabecera.php       cabecera y navegación comunes
   pie.php            pie común
 css/  js/  img/
@@ -83,15 +83,15 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 ## 6. Qué leer según la tarea
 
-| Si tocas… | Lee |
-|---|---|
-| Registro, login, sesión, cerrar sesión | `spec.md` (Acceso, RF-01 a RF-08), `includes/auth.php` |
-| Inicio y categorías | `spec.md` (Inicio y actividades, RF-09 y RF-10), `sql/schema.sql` |
-| Reservas | `spec.md` (Reserva, RF-11 a RF-15) y casos límite |
-| Mis reservas, perfil, quiénes somos | `spec.md` (Otras páginas, RF-16 a RF-20) |
-| Tablas y datos | `sql/schema.sql`, `sql/datos.sql` |
-| Estructura y módulos | `specs/plan.md` |
-| Estilo y accesibilidad | `constitution.md` (regla 10) y §8 de este archivo |
+| Si tocas…                              | Lee                                                                     |
+| -------------------------------------- | ----------------------------------------------------------------------- |
+| Registro, login, sesión, cerrar sesión | `specs/spec.md` (Acceso, RF-01 a RF-08), `includes/auth.php`            |
+| Inicio y categorías                    | `specs/spec.md` (Inicio y actividades, RF-09 y RF-10), `sql/schema.sql` |
+| Reservas                               | `specs/spec.md` (Reserva, RF-11 a RF-15) y casos límite                 |
+| Mis reservas, perfil, quiénes somos    | `specs/spec.md` (Otras páginas, RF-16 a RF-20)                          |
+| Tablas y datos                         | `sql/schema.sql`, `sql/datos.sql`                                       |
+| Estructura y módulos                   | `plan.md`                                                               |
+| Estilo y accesibilidad                 | `constitution.md` (regla 10) y §8 de este archivo                       |
 
 ## 7. Definición de hecho (cualquier tarea)
 
@@ -138,7 +138,7 @@ Ver la lista en `constitution.md`. Resumen: no concatenar SQL · no contraseñas
 
 ## 10. Ahorro de tokens y cambio de IA
 
-El estado del proyecto vive en **git + `specs/tasks.md`**, nunca en la memoria de un chat.
+El estado del proyecto vive en **git + `tasks.md`**, nunca en la memoria de un chat.
 
 1. **Una tarea por sesión.** Lee este archivo, `constitution.md`, la tarea y solo el apartado de la spec que cita.
 2. **Antes de agotar el contexto o cambiar de herramienta:** haz commit, marca la tarea si está terminada y, si queda a medias, añade bajo ella una línea `  - Notas: qué está hecho, qué falta, archivos tocados`.
