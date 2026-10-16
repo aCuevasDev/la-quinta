@@ -19,7 +19,7 @@ Público con poca soltura digital. Prioridad: seguridad básica > claridad y acc
 | Acceso a datos       | PDO con consultas preparadas                                   |
 | Front                | HTML5, CSS y JavaScript sin librerías                          |
 | Sesiones             | Sesiones de PHP (`$_SESSION`)                                  |
-| Entorno local        | **Docker (Docker Compose)**: `docker compose up -d` · alternativa XAMPP / `php -S localhost:8000` |
+| Entorno local        | **Docker (Docker Compose)**: `docker compose up -d` · alternativa XAMPP / `php -S localhost:8000 -t src` |
 | Control de versiones | Git + GitHub                                                   |
 | Pruebas              | Comprobación manual con los «Hecho cuando» de `specs/spec001-mvp/tasks.md` |
 
@@ -28,7 +28,7 @@ Comandos útiles (Docker, entorno principal):
 - Parar: `docker compose down`
 - Resetear la base de datos: `docker compose down -v && docker compose up -d`
 - Ver registros: `docker compose logs -f web`
-- Alternativa sin Docker: `php -S localhost:8000` con XAMPP/MySQL local
+- Alternativa sin Docker: `php -S localhost:8000 -t src` con XAMPP/MySQL local
 - Tablas y datos: `sql/schema.sql` y `sql/datos.sql` (se importan solos al primer arranque del contenedor)
 
 ## 3. Estructura de código
@@ -45,15 +45,16 @@ specs/
 sql/
   schema.sql         tablas: usuarios, categorias, actividades, reservas
   datos.sql          4 categorías y 12 actividades
-includes/
-  db.php             ÚNICO lugar que crea la conexión PDO
-  auth.php           inicia sesión y redirige a login si no hay usuario (solo páginas privadas)
-  cabecera.php       cabecera y navegación comunes
-  pie.php            pie común
-css/  js/  img/
-login.php  registro.php  logout.php
-inicio.php  categoria.php  reserva.php
-mis_reservas.php  perfil.php  quienes_somos.php
+src/                 RAÍZ WEB (DocumentRoot): aquí vive todo el código servido
+  includes/
+    db.php           ÚNICO lugar que crea la conexión PDO
+    auth.php         inicia sesión y redirige a login si no hay usuario (solo páginas privadas)
+    cabecera.php     cabecera y navegación comunes
+    pie.php          pie común
+  css/  js/  img/
+  login.php  registro.php  logout.php
+  inicio.php  categoria.php  reserva.php
+  mis_reservas.php  perfil.php  quienes_somos.php
 ```
 
 Modelo de datos (relaciones 1:N):
@@ -90,7 +91,7 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 | Si tocas…                              | Lee                                                                     |
 | -------------------------------------- | ----------------------------------------------------------------------- |
-| Registro, login, sesión, cerrar sesión | `specs/spec001-mvp/spec.md` (Acceso, RF-01 a RF-08), `includes/auth.php`            |
+| Registro, login, sesión, cerrar sesión | `specs/spec001-mvp/spec.md` (Acceso, RF-01 a RF-08), `src/includes/auth.php`            |
 | Inicio y categorías                    | `specs/spec001-mvp/spec.md` (Inicio y actividades, RF-09 y RF-10), `sql/schema.sql` |
 | Reservas                               | `specs/spec001-mvp/spec.md` (Reserva, RF-11 a RF-15) y casos límite                 |
 | Mis reservas, perfil, quiénes somos    | `specs/spec001-mvp/spec.md` (Otras páginas, RF-16 a RF-20)                          |
@@ -110,7 +111,7 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 ## 8. Reglas por área
 
-### PHP y seguridad (`*.php`, `includes/`)
+### PHP y seguridad (`src/**/*.php`, `src/includes/`)
 - Cada formulario valida en servidor: campos vacíos, longitud y formato, aunque JavaScript ya lo haya comprobado.
 - Usa `$_SESSION['usuario_id']` para saber quién es el usuario; nunca un `usuario_id` recibido por URL o formulario.
 - Si un `id` de la URL no existe (`reserva.php?id=999`), muestra un mensaje claro y no un error técnico.
@@ -140,12 +141,12 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 ### Docker (`Dockerfile`, `docker-compose.yml`)
 Docker es el entorno principal (RNF-06 y RNF-07 de la spec). La app debe levantarse con un solo comando y sin instalar PHP ni MySQL en la máquina.
-- `Dockerfile`: imagen base `php:8.3-apache` + `docker-php-ext-install pdo_mysql`. Copia el proyecto en `/var/www/html`.
+- `Dockerfile`: imagen base `php:8.3-apache` + `docker-php-ext-install pdo_mysql`. Copia `src/` en `/var/www/html`, que es la raíz web (RNF-08).
 - `docker-compose.yml`: dos servicios.
-  - `web`: construye desde el `Dockerfile`, publica `8000:80`, monta el código en vivo (`.:/var/www/html`) y `depends_on: db` con `condition: service_healthy`.
+  - `web`: construye desde el `Dockerfile`, publica `8000:80`, monta el código en vivo (`./src:/var/www/html`, que es el DocumentRoot de Apache) y `depends_on: db` con `condition: service_healthy`.
   - `db`: imagen `mysql:8.4`, credenciales de desarrollo, volumen persistente (`db_data:/var/lib/mysql`) y `healthcheck` con `mysqladmin ping`.
 - Variables de entorno del servicio `web`: `DB_HOST: db`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
-- `includes/db.php` es el **único** sitio que abre la conexión: lee `DB_HOST`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` con `getenv()`, con valores por defecto para XAMPP (`localhost`, `root`). Nunca escribir el host `localhost` a fuego.
+- `src/includes/db.php` es el **único** sitio que abre la conexión: lee `DB_HOST`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` con `getenv()`, con valores por defecto para XAMPP (`localhost`, `root`). Nunca escribir el host `localhost` a fuego.
 - Importación automática: monta `./sql` en `/docker-entrypoint-initdb.d` para que `schema.sql` y `datos.sql` se carguen al crear el contenedor (RNF-07).
 - `.dockerignore`: `.git`, `db_data` y cualquier cosa que no deba copiarse en la imagen.
 - Puerto local: `http://localhost:8000`.

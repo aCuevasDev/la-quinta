@@ -57,14 +57,14 @@ mysql -u root -p la_quinta < sql/datos.sql
 
 ### 4. Configurar la conexión
 
-Edita `includes/db.php` con los datos de tu servidor MySQL (host, base de datos, usuario y contraseña).
+Edita `src/includes/db.php` con los datos de tu servidor MySQL (host, base de datos, usuario y contraseña).
 
 ### 5. Arrancar la web
 
 Con el servidor integrado de PHP:
 
 ```bash
-php -S localhost:8000
+php -S localhost:8000 -t src
 ```
 
 Abre `http://localhost:8000/login.php` en el navegador. Si usas XAMPP o Docker, abre la ruta que corresponda a tu entorno.
@@ -76,6 +76,8 @@ la-quinta/
 ├── constitution.md      reglas globales e innegociables
 ├── AGENTS.md            contexto y flujo de trabajo para la IA
 ├── README.md            este archivo
+├── Dockerfile           imagen PHP 8 + Apache (web)
+├── docker-compose.yml   levanta web + MySQL 8 con un comando
 ├── specs/
 │   ├── spec.md          QUÉ y POR QUÉ (requisitos RF-xx en EARS)
 │   ├── plan.md          CÓMO técnico
@@ -83,15 +85,16 @@ la-quinta/
 ├── sql/
 │   ├── schema.sql       tablas
 │   └── datos.sql        4 categorías y 12 actividades
-├── includes/
-│   ├── db.php           conexión PDO
-│   ├── auth.php         comprobación de sesión
-│   ├── cabecera.php
-│   └── pie.php
-├── css/  js/  img/
-├── login.php  registro.php  logout.php
-├── inicio.php  categoria.php  reserva.php
-└── mis_reservas.php  perfil.php  quienes_somos.php
+├── src/                 RAÍZ WEB (DocumentRoot)
+│   ├── includes/
+│   │   ├── db.php       conexión PDO
+│   │   ├── auth.php     comprobación de sesión
+│   │   ├── cabecera.php
+│   │   └── pie.php
+│   ├── css/  js/  img/
+│   ├── login.php  registro.php  logout.php
+│   ├── inicio.php  categoria.php  reserva.php
+│   └── mis_reservas.php  perfil.php  quienes_somos.php
 ```
 
 ## Cómo se trabaja (SDD)

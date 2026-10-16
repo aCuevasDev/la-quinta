@@ -9,10 +9,10 @@ seguridad básica > claridad y accesibilidad > que funcione > estética
 ## Reglas inquebrantables
 
 1. **El cliente nunca decide.** Todo dato que llega del navegador (formularios, URL, JavaScript) se valida de nuevo en PHP. El JavaScript solo ayuda al usuario.
-2. **Autorización en cada página privada.** `inicio`, `categoria`, `reserva`, `mis_reservas` y `perfil` incluyen `includes/auth.php` en la primera línea. Sin sesión → redirige a `login.php`.
+2. **Autorización en cada página privada.** `inicio`, `categoria`, `reserva`, `mis_reservas` y `perfil` incluyen `src/includes/auth.php` en la primera línea. Sin sesión → redirige a `login.php`.
 3. **Cada usuario ve solo lo suyo.** Las consultas de reservas y perfil filtran siempre por `usuario_id` de la sesión, nunca por un id que venga de la URL.
 4. **Consultas preparadas con PDO.** Prohibido concatenar variables dentro de una sentencia SQL.
-5. **Una sola conexión.** Solo `includes/db.php` crea la conexión a la base de datos.
+5. **Una sola conexión.** Solo `src/includes/db.php` crea la conexión a la base de datos.
 6. **Contraseñas:** se guardan con `password_hash()` y se comprueban con `password_verify()`. Nunca en texto plano, nunca visibles en pantalla.
 7. **Escapar al mostrar.** Todo texto que escribe el usuario se imprime con `htmlspecialchars()`.
 8. **Fechas** guardadas como `DATE` (`AAAA-MM-DD`) y mostradas como `dd/mm/aaaa`. No se permite reservar un día anterior a hoy (se valida en PHP).
