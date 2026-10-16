@@ -1,6 +1,6 @@
 # PLAN.md · La Quinta
 
-Plan técnico y de construcción por fases. **Se completa una fase entera (su Definición de Hecho) antes de empezar la siguiente.** El detalle ejecutable está en `specs/tasks.md`; las reglas, en `constitution.md` y `AGENTS.md`; el contrato (qué debe hacer la web), en `specs/spec.md`.
+Plan técnico y de construcción por fases. **Se completa una fase entera (su Definición de Hecho) antes de empezar la siguiente.** El detalle ejecutable está en `specs/spec001-mvp/tasks.md`; las reglas, en `constitution.md` y `AGENTS.md`; el contrato (qué debe hacer la web), en `specs/spec001-mvp/spec.md`.
 
 ## 1. Visión y orden de construcción
 
@@ -89,7 +89,7 @@ Datos de ejemplo (`sql/datos.sql`): 4 categorías y 12 actividades (3 por catego
 
 ## 4. Decisiones técnicas y simplificaciones
 
-El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de salud, varios idiomas). Esta versión se limita a lo que se domina: PHP, MySQL, HTML, CSS y JavaScript. **Prevalece lo escrito en este plan y en `specs/spec.md`.**
+El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de salud, varios idiomas). Esta versión se limita a lo que se domina: PHP, MySQL, HTML, CSS y JavaScript. **Prevalece lo escrito en este plan y en `specs/spec001-mvp/spec.md`.**
 
 | ID | Decisión | Motivo |
 |---|---|---|
@@ -139,7 +139,7 @@ El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de sal
 ### F6 · Calidad y entrega
 - **Objetivo:** verificar, pulir y entregar.
 - **Entregables:** revisión de seguridad, prueba de casos límite, accesibilidad con teclado y zoom, prueba con personas mayores, spec y plan actualizados, entrega en Git.
-- **Hecho cuando:** se cumplen todos los RF de `spec.md`, spec y código coinciden y el repositorio está limpio.
+- **Hecho cuando:** se cumplen todos los RF de `specs/spec001-mvp/spec.md`, spec y código coinciden y el repositorio está limpio.
 
 ## 6. Riesgos
 
@@ -148,15 +148,15 @@ El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de sal
 | Inyección SQL | PDO con consultas preparadas en todo el código; revisión en F6-01 |
 | Contraseñas expuestas | `password_hash()` y `password_verify()`; nunca en claro ni visibles |
 | Un usuario ve datos de otro | Filtrar siempre por `usuario_id` de la sesión; prueba con dos usuarios en F4-09 |
-| Dos personas con el mismo nombre y apellidos | Limitación asumida por D4; si hay que resolverla, añadir un campo identificador (por ejemplo, teléfono o usuario) y cambiar `spec.md` antes de tocar código |
+| Dos personas con el mismo nombre y apellidos | Limitación asumida por D4; si hay que resolverla, añadir un campo identificador (por ejemplo, teléfono o usuario) y cambiar `specs/spec001-mvp/spec.md` antes de tocar código |
 | Reservas duplicadas o con fecha pasada | Validación en PHP y `UNIQUE` en la base de datos |
 | Personas mayores no logran usar la web | Texto grande, botones grandes, mensajes claros, prueba con usuarios reales en F6-06 |
-| Spec y código se desincronizan | Cada cambio pasa primero por `spec.md`; revisión final en F6-07 |
+| Spec y código se desincronizan | Cada cambio pasa primero por `specs/spec001-mvp/spec.md`; revisión final en F6-07 |
 | Errores técnicos visibles al usuario | Excepciones controladas y errores de PHP ocultos en la versión final (F6-03) |
 
 ## 7. Decisiones pendientes
 
-Ver «Dudas abiertas» de `specs/spec.md`. Hasta que se cierren se usan los valores por defecto de este plan:
+Ver «Dudas abiertas» de `specs/spec001-mvp/spec.md`. Hasta que se cierren se usan los valores por defecto de este plan:
 
 1. ¿Hay que añadir cancelar reserva? (por defecto: no)
 2. ¿Hay límite de personas por día? (por defecto: no)
@@ -165,9 +165,9 @@ Ver «Dudas abiertas» de `specs/spec.md`. Hasta que se cierren se usan los valo
 
 ## 8. Cómo usar este plan con IA
 
-1. Abre el repo con `constitution.md`, `AGENTS.md`, `specs/spec.md`, `specs/plan.md` y `specs/tasks.md`.
+1. Abre el repo con `constitution.md`, `AGENTS.md`, `specs/spec001-mvp/spec.md`, `specs/spec001-mvp/plan.md` y `specs/spec001-mvp/tasks.md`.
 2. **Modo Plan primero:** antes de codificar una fase, pide a la IA que lea la spec y proponga cómo la haría; revisa y aprueba.
-3. Pide: «Ejecuta la siguiente tarea sin marcar de `specs/tasks.md` siguiendo `AGENTS.md`».
+3. Pide: «Ejecuta la siguiente tarea sin marcar de `specs/spec001-mvp/tasks.md` siguiendo `AGENTS.md`».
 4. Revisa el diff, prueba a mano el «Hecho cuando» y deja que marque la tarea.
-5. Al completar una fase, pide: «Verifica la Definición de Hecho de la fase X de `specs/plan.md` y lista lo que falte».
-6. Si la IA se encuentra una decisión no acordada, debe parar y preguntar; se anota en `spec.md` y después se continúa.
+5. Al completar una fase, pide: «Verifica la Definición de Hecho de la fase X de `specs/spec001-mvp/plan.md` y lista lo que falte».
+6. Si la IA se encuentra una decisión no acordada, debe parar y preguntar; se anota en `specs/spec001-mvp/spec.md` y después se continúa.

@@ -1,6 +1,6 @@
 # AGENTS.md · La Quinta
 
-> Lee este archivo entero antes de escribir código. Las reglas globales están en `constitution.md`; el contrato (qué debe hacer la web) está en `specs/spec.md`.
+> Lee este archivo entero antes de escribir código. Las reglas globales están en `constitution.md`; el contrato (qué debe hacer la web) está en `specs/spec001-mvp/spec.md`.
 
 ## 1. Qué es el proyecto
 
@@ -21,7 +21,7 @@ Público con poca soltura digital. Prioridad: seguridad básica > claridad y acc
 | Sesiones             | Sesiones de PHP (`$_SESSION`)                                  |
 | Entorno local        | XAMPP / Docker / `php -S localhost:8000`                       |
 | Control de versiones | Git + GitHub                                                   |
-| Pruebas              | Comprobación manual con los «Hecho cuando» de `specs/tasks.md` |
+| Pruebas              | Comprobación manual con los «Hecho cuando» de `specs/spec001-mvp/tasks.md` |
 
 Comandos útiles:
 - Servidor local: `php -S localhost:8000` (o el que uséis)
@@ -62,8 +62,8 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 ## 5. Cómo trabajar (flujo obligatorio)
 
-1. Abre `specs/tasks.md` y toma **la primera tarea sin marcar**.
-2. Lee `constitution.md`, el apartado de `specs/spec.md` que cita la tarea y, si hace falta, `specs/plan.md`.
+1. Abre `specs/spec001-mvp/tasks.md` y toma **la primera tarea sin marcar**.
+2. Lee `constitution.md`, el apartado de `specs/spec001-mvp/spec.md` que cita la tarea y, si hace falta, `specs/spec001-mvp/plan.md`.
 3. Implementa en pasos pequeños; no toques nada que no sea de la tarea.
 4. Comprueba a mano los criterios «Hecho cuando» de la tarea, incluidos los casos de error.
 5. Marca la tarea `[x]` y haz commit indicando qué requisitos (RF-xx) cumple.
@@ -72,7 +72,7 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
    b) Hay una duda abierta con valor por defecto: aplica ese valor, cita su ID
       (DA-xx) en el commit y avisa al terminar la tarea.
    c) No está en ninguna parte: PARA esa parte. Añade una duda nueva en
-      `spec.md` §3.3 con tu propuesta de valor por defecto y pregunta. Continúa
+      `specs/spec001-mvp/spec.md` §3.3 con tu propuesta de valor por defecto y pregunta. Continúa
       solo con lo que no depende de ella.
    d) La spec parece errónea, incompleta o contradice la constitución: PARA. No
       corrijas el código por tu cuenta: propón el cambio en la spec, espera
@@ -85,12 +85,12 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 | Si tocas…                              | Lee                                                                     |
 | -------------------------------------- | ----------------------------------------------------------------------- |
-| Registro, login, sesión, cerrar sesión | `specs/spec.md` (Acceso, RF-01 a RF-08), `includes/auth.php`            |
-| Inicio y categorías                    | `specs/spec.md` (Inicio y actividades, RF-09 y RF-10), `sql/schema.sql` |
-| Reservas                               | `specs/spec.md` (Reserva, RF-11 a RF-15) y casos límite                 |
-| Mis reservas, perfil, quiénes somos    | `specs/spec.md` (Otras páginas, RF-16 a RF-20)                          |
+| Registro, login, sesión, cerrar sesión | `specs/spec001-mvp/spec.md` (Acceso, RF-01 a RF-08), `includes/auth.php`            |
+| Inicio y categorías                    | `specs/spec001-mvp/spec.md` (Inicio y actividades, RF-09 y RF-10), `sql/schema.sql` |
+| Reservas                               | `specs/spec001-mvp/spec.md` (Reserva, RF-11 a RF-15) y casos límite                 |
+| Mis reservas, perfil, quiénes somos    | `specs/spec001-mvp/spec.md` (Otras páginas, RF-16 a RF-20)                          |
 | Tablas y datos                         | `sql/schema.sql`, `sql/datos.sql`                                       |
-| Estructura y módulos                   | `plan.md`                                                               |
+| Estructura y módulos                   | `specs/spec001-mvp/plan.md`                                                |
 | Estilo y accesibilidad                 | `constitution.md` (regla 10) y §8 de este archivo                       |
 
 ## 7. Definición de hecho (cualquier tarea)
@@ -115,7 +115,7 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 - Nombres en minúsculas y `snake_case`, sin `ñ` ni acentos (`creado_en`, `categoria_id`).
 - Claves primarias `INT AUTO_INCREMENT`; relaciones con `FOREIGN KEY`.
 - Las restricciones importantes (`UNIQUE`, `NOT NULL`, claves foráneas) van en la base de datos, no solo en PHP.
-- Consulta `sql/schema.sql` antes de añadir o cambiar una tabla; cualquier cambio queda anotado en `specs/plan.md`.
+- Consulta `sql/schema.sql` antes de añadir o cambiar una tabla; cualquier cambio queda anotado en `specs/spec001-mvp/plan.md`.
 - Para listados con datos de varias tablas (por ejemplo, mis reservas) usa `JOIN`.
 
 ### UI accesible (HTML, CSS, JS)
@@ -138,10 +138,10 @@ Ver la lista en `constitution.md`. Resumen: no concatenar SQL · no contraseñas
 
 ## 10. Ahorro de tokens y cambio de IA
 
-El estado del proyecto vive en **git + `tasks.md`**, nunca en la memoria de un chat.
+El estado del proyecto vive en **git + `specs/spec001-mvp/tasks.md`**, nunca en la memoria de un chat.
 
 1. **Una tarea por sesión.** Lee este archivo, `constitution.md`, la tarea y solo el apartado de la spec que cita.
 2. **Antes de agotar el contexto o cambiar de herramienta:** haz commit, marca la tarea si está terminada y, si queda a medias, añade bajo ella una línea `  - Notas: qué está hecho, qué falta, archivos tocados`.
-3. **Al empezar con otra IA:** que lea `AGENTS.md`, `constitution.md`, `specs/tasks.md` (primera tarea sin marcar y sus notas) y `git log -5`.
-4. **IA sin acceso a archivos** (chat web): pega `constitution.md`, `AGENTS.md`, la tarea y el trozo de `spec.md` que toca.
+3. **Al empezar con otra IA:** que lea `AGENTS.md`, `constitution.md`, `specs/spec001-mvp/tasks.md` (primera tarea sin marcar y sus notas) y `git log -5`.
+4. **IA sin acceso a archivos** (chat web): pega `constitution.md`, `AGENTS.md`, la tarea y el trozo de `specs/spec001-mvp/spec.md` que toca.
 5. No cambies reglas, stack ni estructura por iniciativa propia: propón el cambio y espera aprobación.

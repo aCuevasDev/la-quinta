@@ -1,6 +1,6 @@
 # TASKS.md · La Quinta
 
-Lista ejecutable por fases. **Regla:** toma la primera tarea sin marcar de la fase activa, lee `constitution.md` y solo el apartado de `specs/spec.md` que cita la tarea, comprueba a mano su «Hecho cuando» (incluidos los casos de error) y marca `[x]` al terminar. No pases de fase sin cumplir su Definición de Hecho (al final de cada fase).
+Lista ejecutable por fases. **Regla:** toma la primera tarea sin marcar de la fase activa, lee `constitution.md` y solo el apartado de `specs/spec001-mvp/spec.md` que cita la tarea, comprueba a mano su «Hecho cuando» (incluidos los casos de error) y marca `[x]` al terminar. No pases de fase sin cumplir su Definición de Hecho (al final de cada fase).
 
 Formato: `- [ ] ID · Tarea` → referencia · **Hecho cuando** …
 
@@ -9,7 +9,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 ---
 
 ## F0 · Cimientos
-- [ ] F0-01 · Crear el repositorio Git, subirlo a GitHub y añadir `constitution.md`, `AGENTS.md` y la carpeta `specs/` con `spec.md`, `plan.md` y `tasks.md` → `AGENTS` §3 · el repo está en GitHub con esa estructura
+- [ ] F0-01 · Crear el repositorio Git, subirlo a GitHub y añadir `constitution.md`, `AGENTS.md` y la carpeta `specs/spec001-mvp/` con `spec.md`, `plan.md` y `tasks.md` → `AGENTS` §3 · el repo está en GitHub con esa estructura
 - [ ] F0-02 · Crear las carpetas y archivos vacíos del proyecto (`includes/`, `sql/`, `css/`, `js/`, `img/` y las 9 páginas `.php`) → `AGENTS` §3 · la estructura coincide con la de `AGENTS.md`
 - [ ] F0-03 · Preparar el entorno local (XAMPP, Docker o `php -S`) y anotarlo en `AGENTS.md` §2 → `AGENTS` §2 · una página `.php` de prueba se ve en el navegador y `[completar]` ya no aparece
 - [ ] F0-04 · CSS base accesible: texto 18 px, interlineado 1,5, contraste alto, botones ≥ 48 px, foco visible → `constitution` regla 10 · una página de muestra con título, texto, formulario y botón cumple todo
@@ -74,7 +74,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 - [ ] F6-04 · Accesibilidad: recorrido solo con teclado, zoom 200 %, móvil y escritorio → `constitution` regla 10 · sin elementos solapados ni controles inalcanzables
 - [ ] F6-05 · Recorrido completo de control: registro → login → inicio → categoría → reservar → mis reservas → perfil → cerrar sesión → `spec` Hecho cuando · todo el flujo funciona sin errores
 - [ ] F6-06 · Probar la web con una o dos personas mayores y anotar qué les cuesta entender → `spec` Contexto · lista de mejoras anotada y aplicada o apuntada en dudas abiertas
-- [ ] F6-07 · Actualizar `spec.md` y `plan.md` con lo que haya cambiado durante el desarrollo y cerrar las dudas abiertas → `spec` Dudas abiertas · spec y código coinciden (spec-anchored)
+- [ ] F6-07 · Actualizar `specs/spec001-mvp/spec.md` y `specs/spec001-mvp/plan.md` con lo que haya cambiado durante el desarrollo y cerrar las dudas abiertas → `spec` Dudas abiertas · spec y código coinciden (spec-anchored)
 - [ ] F6-08 · Commit final y Pull Request o entrega con el repositorio limpio → `AGENTS` §5 · rama principal con todo y sin archivos de prueba
 
-**Definición de Hecho F6:** la web cumple todos los RF de `spec.md`, spec y código están sincronizados y el proyecto está entregado en Git.
+**Definición de Hecho F6:** la web cumple todos los RF de `specs/spec001-mvp/spec.md`, spec y código están sincronizados y el proyecto está entregado en Git.

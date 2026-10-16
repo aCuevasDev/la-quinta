@@ -99,13 +99,13 @@ la-quinta/
 El flujo sigue estos pasos:
 
 1. **Constitución:** reglas globales en `constitution.md`.
-2. **Especificación:** requisitos en `specs/spec.md`.
+2. **Especificación:** requisitos en `specs/spec001-mvp/spec.md`.
 3. **Clarificación:** se cierran las dudas abiertas de la spec.
-4. **Plan técnico:** `specs/plan.md`, revisado antes de programar.
-5. **Tareas:** `specs/tasks.md`, con «Hecho cuando» para cada una.
+4. **Plan técnico:** `specs/spec001-mvp/plan.md`, revisado antes de programar.
+5. **Tareas:** `specs/spec001-mvp/tasks.md`, con «Hecho cuando» para cada una.
 6. **Implementación y validación:** una tarea cada vez y comprobación contra la spec.
 
-Si durante la implementación aparece una decisión que no está acordada, se **para**, se actualiza `specs/spec.md` y después se continúa.
+Si durante la implementación aparece una decisión que no está acordada, se **para**, se actualiza `specs/spec001-mvp/spec.md` y después se continúa.
 
 ### Documentos clave
 
@@ -113,13 +113,13 @@ Si durante la implementación aparece una decisión que no está acordada, se **
 |---|---|
 | [`constitution.md`](constitution.md) | Reglas que nunca se rompen |
 | [`AGENTS.md`](AGENTS.md) | Qué leer y cómo trabajar (personas o IA) |
-| [`specs/spec.md`](specs/spec.md) | Contrato de la web y tabla de validación |
-| [`specs/plan.md`](specs/plan.md) | Arquitectura, datos y fases |
-| [`specs/tasks.md`](specs/tasks.md) | Lista de tareas por fases |
+| [`specs/spec001-mvp/spec.md`](specs/spec001-mvp/spec.md) | Contrato de la web y tabla de validación |
+| [`specs/spec001-mvp/plan.md`](specs/spec001-mvp/plan.md) | Arquitectura, datos y fases |
+| [`specs/spec001-mvp/tasks.md`](specs/spec001-mvp/tasks.md) | Lista de tareas por fases |
 
 ## Estado del proyecto
 
-Se sigue `specs/tasks.md`. Las tareas completadas están marcadas con `[x]` y la fase activa es la primera con tareas sin marcar.
+Se sigue `specs/spec001-mvp/tasks.md`. Las tareas completadas están marcadas con `[x]` y la fase activa es la primera con tareas sin marcar.
 
 ## Fuera de alcance de esta versión
 

@@ -19,7 +19,7 @@ seguridad básica > claridad y accesibilidad > que funcione > estética
 9. **Sin reservas duplicadas:** `UNIQUE (usuario_id, actividad_id, fecha)` en la base de datos y comprobación previa en PHP.
 10. **Accesibilidad es requisito, no extra** (público: personas mayores): texto base 18 px, buen contraste, botones grandes (≥ 48 px), etiquetas siempre visibles, errores escritos en la página (nunca solo con color), un solo botón principal por pantalla.
 11. **Todo texto visible en español**, con frases cortas y lenguaje llano.
-12. **La spec es la única fuente de verdad.** Todo comportamiento visible debe salir de un RF, RNF o CL de `spec.md`. Lo que no está en la spec no se implementa..
+12. **La spec es la única fuente de verdad.** Todo comportamiento visible debe salir de un RF, RNF o CL de `specs/spec001-mvp/spec.md`. Lo que no está en la spec no se implementa..
 13. **No introduzcas tecnologías** que no estén en la tabla del §2 de `AGENTS.md`.
 
 ## Prohibiciones rápidas
