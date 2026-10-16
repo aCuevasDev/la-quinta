@@ -12,7 +12,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 
 ## F0 · Cimientos
 - [x] F0-01 · Crear el repositorio Git, subirlo a GitHub y añadir `constitution.md`, `AGENTS.md` y la carpeta `specs/spec001-mvp/` con `spec.md`, `plan.md` y `tasks.md` → `AGENTS` §3 · el repo está en GitHub con esa estructura
-- [x] F0-02 · Crear las carpetas del proyecto: `src/` (con `includes/`, `css/`, `js/`, `img/` y las 9 páginas `.php`) y `sql/` en la raíz → RNF-08, `AGENTS` §3 · la estructura coincide con la de `AGENTS.md`
+- [x] F0-02 · Crear las carpetas del proyecto: `src/` (con `includes/`, `css/`, `js/`, `img/` y las 10 páginas `.php`) y `sql/` en la raíz → RNF-08, `AGENTS` §3 · la estructura coincide con la de `AGENTS.md`
 - [x] F0-03 · Añadir `Dockerfile` (PHP 8 + Apache con `pdo_mysql`), `docker-compose.yml` (web + MySQL 8, volumen de datos y variables de entorno) y `.dockerignore` → RNF-06, RNF-07 · `docker compose up -d` levanta la web y `http://localhost:8000/login.php` responde 200 con el formulario de login
 - [x] F0-04 · CSS base accesible: texto 18 px, interlineado 1,5, contraste alto, botones ≥ 48 px, foco visible → `constitution` regla 10 · una página de muestra con título, texto, formulario y botón cumple todo
 - [x] F0-05 · `src/includes/cabecera.php` y `src/includes/pie.php` con navegación común y enlace «Saltar al contenido» → RF-20 · se incluyen en una página de prueba y se navega con teclado
@@ -23,7 +23,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 
 ## F1 · Base de datos
 - [x] F1-01 · Escribir `sql/schema.sql` con las tablas `usuarios`, `categorias`, `actividades` y `reservas` (claves foráneas y `UNIQUE`) → `plan` Datos · se importa sin errores y las 4 tablas existen
-- [x] F1-02 · Escribir `sql/datos.sql` con 4 categorías (con su descripción breve) y 12 actividades (3 por categoría) → `spec` RF-09, RF-10 · tras importar, cada categoría tiene exactamente 3 actividades
+- [x] F1-02 · Escribir `sql/datos.sql` con 4 categorías (con su descripción breve) y 12 actividades (3 por categoría) → `spec` RF-09, RF-10, RNF-10 · tras importar, cada categoría tiene exactamente 3 actividades y las tildes se ven bien
 - [x] F1-03 · `src/includes/db.php` con la conexión PDO leyendo host, usuario y contraseña de variables de entorno (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) con valores por defecto para XAMPP (errores controlados, sin mostrar datos técnicos) → `constitution` reglas 4 y 5 · una página de prueba conecta dentro de Docker y, con datos de conexión falsos, muestra un mensaje amable
 - [x] F1-04 · Comprobar las restricciones en la base de datos (usuario duplicado, reserva duplicada, actividad inexistente) → `constitution` regla 9 · cada intento inválido falla en MySQL
 
@@ -84,7 +84,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 
 ## F7 · Rediseño visual (Figma)
 - [x] F7-01 · Autoalojar las fuentes Arimo e Inter en `src/css/fuentes/` (woff2) y cargarlas con `@font-face` (`font-display: swap` y vuelta al sistema) → RNF-01, RNF-09 · las páginas usan Arimo; sin conexión se ve Arial y nada se rompe
-- [x] F7-02 · Reescribir `src/css/estilos.css` con los tokens del diseño (turquesa `#00a7b5`, fondo `#f9fafb`, texto `#101828`, radios 10/16, sombras) sobre las clases actuales, con botón `#c2410c` y textos ≥ 18 px → RNF-01, RNF-02, RNF-09, `constitution` regla 10 · las 9 páginas se ven con el nuevo estilo y cumplen 18 px / interlineado 1,5 / controles ≥ 48 px / contraste AA / foco visible
-- [x] F7-03 · Ajustar `src/includes/cabecera.php` (marca y sombra) y `src/includes/pie.php` (pie en columnas) al diseño → RF-20, RNF-09 · cabecera y pie se ven coherentes en las 9 páginas
+- [x] F7-02 · Reescribir `src/css/estilos.css` con los tokens del diseño (turquesa `#00a7b5`, fondo `#f9fafb`, texto `#101828`, radios 10/16, sombras) sobre las clases actuales, con botón `#c2410c` y textos ≥ 18 px → RNF-01, RNF-02, RNF-09, `constitution` regla 10 · las 10 páginas se ven con el nuevo estilo y cumplen 18 px / interlineado 1,5 / controles ≥ 48 px / contraste AA / foco visible
+- [x] F7-03 · Ajustar `src/includes/cabecera.php` (marca y sombra) y `src/includes/pie.php` (pie en columnas) al diseño → RF-20, RNF-09 · cabecera y pie se ven coherentes en las 10 páginas
 
 **Definición de Hecho F7:** `bash tests/smoke.sh` en verde, la tabla de contraste no tiene fallos AA y el recorrido completo se hace solo con teclado.

@@ -99,7 +99,7 @@ El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de sal
 |---|---|---|
 | D1 | PHP sin framework, MySQL/MariaDB con PDO | Es el stack conocido; permite terminar y entender todo el código |
 | D2 | Sesiones de PHP (`$_SESSION`) | Suficiente para un solo tipo de usuario |
-| D3 | El registro pide **nombre, apellidos y contraseña** | El login exige contraseña; si el registro no la pide, nadie podría entrar. **Pendiente de confirmar** |
+| D3 | El registro pide **nombre, apellidos y contraseña** | El login exige contraseña; si el registro no la pide, nadie podría entrar. **Confirmado (DA-01 cerrada)** |
 | D4 | La identidad es nombre + apellidos (`UNIQUE`) | Es lo que pide el enunciado. Limitación conocida: dos personas con el mismo nombre y apellidos no pueden registrarse (ver riesgos) |
 | D5 | Sin pagos, roles, cancelación, límite de plazas ni recuperación de contraseña | Fuera de alcance de esta versión (ver `constitution.md`) |
 | D6 | Actividades y categorías en la base de datos, no escritas a mano en el HTML | Un solo lugar para editar los textos y las 12 actividades |
@@ -167,8 +167,8 @@ Ver «Dudas abiertas» de `specs/spec001-mvp/spec.md`. Hasta que se cierren se u
 
 1. ¿Hay que añadir cancelar reserva? (por defecto: no)
 2. ¿Hay límite de personas por día? (por defecto: no)
-3. ¿Qué información extra lleva cada actividad: horario, lugar, precio? (por defecto: nombre, descripción y categoría)
-4. ¿El registro lleva contraseña? (por defecto: sí, ver D3)
+3. ¿Qué información extra lleva cada actividad? **Cerrada (16/10/2026, DA-05):** nombre, descripción y categoría.
+4. ¿El registro lleva contraseña? **Cerrada (15/10/2026, DA-01):** sí, ver D3.
 
 ## 8. Cómo usar este plan con IA
 

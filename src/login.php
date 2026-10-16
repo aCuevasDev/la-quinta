@@ -14,8 +14,8 @@ $nombre = '';
 $apellidos = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = trim((string) ($_POST['nombre'] ?? ''));
-    $apellidos = trim((string) ($_POST['apellidos'] ?? ''));
+    $nombre = normalizar_nombre((string) ($_POST['nombre'] ?? ''));
+    $apellidos = normalizar_nombre((string) ($_POST['apellidos'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
 
     $vacios = [];

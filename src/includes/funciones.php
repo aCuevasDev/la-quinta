@@ -21,6 +21,12 @@ function mensaje(string $texto, string $tipo = 'error'): string
     return '<p class="' . $clase . '" role="alert">' . e($texto) . '</p>';
 }
 
+/** Normaliza nombre/apellidos: recorta extremos y colapsa espacios internos (RF-02, RF-04). */
+function normalizar_nombre(string $valor): string
+{
+    return (string) preg_replace('/\s+/u', ' ', trim($valor));
+}
+
 /** Nombre válido: 2-50 caracteres, solo letras (tildes, ñ, ç, ü), espacios, guion y apóstrofo. */
 function nombre_valido(string $valor): bool
 {

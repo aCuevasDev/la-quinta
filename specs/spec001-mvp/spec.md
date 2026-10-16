@@ -26,14 +26,15 @@
 
 #### Acceso
 - **RF-01:** CUANDO el usuario abra `login.php`, EL SISTEMA mostrará un formulario con nombre, apellidos y contraseña, y un enlace a la página de registro.
-- **RF-02:** CUANDO el usuario envíe credenciales correctas, EL SISTEMA iniciará su sesión y le llevará a `inicio.php`.
+- **RF-02:** CUANDO el usuario envíe credenciales correctas (nombre y apellidos comparados sin distinguir mayúsculas, tildes ni espacios sobrantes), EL SISTEMA iniciará su sesión y le llevará a `inicio.php`.
 - **RF-03:** SI las credenciales son incorrectas, ENTONCES EL SISTEMA mostrará un mensaje de error sin indicar qué dato ha fallado y no iniciará sesión.
-- **RF-04:** CUANDO el usuario envíe en `registro.php` un nombre de 2 a 50 caracteres, unos apellidos de 2 a 80 (solo letras, espacios, guion y apóstrofo) y una contraseña de 8 a 64 caracteres, EL SISTEMA creará la cuenta (con la contraseña cifrada) y le llevará a `login.php` con un mensaje de éxito.
+- **RF-04:** CUANDO el usuario envíe en `registro.php` un nombre de 2 a 50 caracteres, unos apellidos de 2 a 80 (solo letras —con tildes, ñ, ç y ü—, espacios, guion y apóstrofo) y una contraseña de 8 a 64 caracteres, EL SISTEMA creará la cuenta (con la contraseña cifrada y tras recortar los espacios sobrantes de los extremos y colapsar los internos en el nombre y los apellidos) y le llevará a `login.php` con un mensaje de éxito.
 - **RF-05:** SI ya existe un usuario con el mismo nombre y apellidos (sin distinguir mayúsculas, tildes ni espacios sobrantes), ENTONCES EL SISTEMA no creará la cuenta y mostrará un mensaje de error.
-- **RF-06:** SI algún campo del formulario de login o de registro está vacío, ENTONCES EL SISTEMA indicará cuál falta y no procesará el formulario.
+- **RF-06:** SI algún campo del formulario de login o de registro está vacío, ENTONCES EL SISTEMA indicará cuál falta y no procesará el formulario. Esto no aplica al selector de día de la reserva, que se rige por RF-12.
 - **RF-07:** SI un usuario sin sesión abre una página privada, ENTONCES EL SISTEMA le redirigirá a `login.php`.
 - **RF-08:** CUANDO el usuario pulse «Cerrar sesión», EL SISTEMA cerrará su sesión y le llevará a `login.php`.
-- **RF-21:** SI el nombre, los apellidos o la contraseña no cumplen sus límites, ENTONCES EL SISTEMA indicará cuál falla y qué se espera, y no creará la cuenta.
+- **RF-21:** SI el nombre, los apellidos o la contraseña no cumplen sus límites de longitud o su formato, ENTONCES EL SISTEMA indicará cuál falla y qué se espera, y no creará la cuenta.
+- **RF-22:** CUANDO el usuario abra `index.php`, EL SISTEMA le llevará a `inicio.php` si tiene la sesión iniciada, o a `login.php` si no la tiene.
 
 #### Inicio y actividades
 - **RF-09:** MIENTRAS el usuario tenga la sesión iniciada, EL SISTEMA mostrará en `inicio.php` las 4 categorías en tarjetas, cada una con su explicación breve y un botón «Ver detalles».
@@ -41,29 +42,30 @@
 
 #### Reserva
 - **RF-11:** CUANDO el usuario pulse «Reservar», EL SISTEMA mostrará `reserva.php` con la información completa de la actividad y un selector de día.
-- **RF-12:** SI el usuario confirma la reserva sin elegir día, ENTONCES EL SISTEMA mostrará un error y no creará la reserva.
+- **RF-12:** SI el usuario confirma la reserva sin elegir día, ENTONCES EL SISTEMA mostrará un error junto al selector y no creará la reserva. Este caso prevalece sobre RF-06 para el campo de día.
 - **RF-13:** SI el día elegido es anterior a hoy o no es una fecha válida, ENTONCES EL SISTEMA mostrará un error y no creará la reserva.
 - **RF-14:** SI el usuario ya tiene esa actividad reservada ese mismo día, ENTONCES EL SISTEMA no creará una reserva duplicada y mostrará un aviso.
 - **RF-15:** CUANDO el usuario confirme una reserva válida, EL SISTEMA la guardará asociada a su cuenta y le llevará a `mis_reservas.php`.
 
 #### Otras páginas
-- **RF-16:** EL SISTEMA mostrará en `mis_reservas.php` únicamente las reservas del usuario con sesión iniciada, indicando actividad, categoría y día.
+- **RF-16:** EL SISTEMA mostrará en `mis_reservas.php` únicamente las reservas del usuario con sesión iniciada, indicando actividad, categoría y día (con la fecha en formato `dd/mm/aaaa`).
 - **RF-17:** SI el usuario no tiene reservas, ENTONCES EL SISTEMA mostrará un mensaje indicándolo.
 - **RF-18:** EL SISTEMA mostrará en `perfil.php` el nombre y los apellidos del usuario con sesión iniciada.
-- **RF-19:** EL SISTEMA tendrá una página `quienes_somos.php` accesible desde la navegación.
+- **RF-19:** EL SISTEMA tendrá una página privada `quienes_somos.php` (solo con la sesión iniciada), accesible desde la navegación.
 - **RF-20:** EL SISTEMA mostrará una navegación común (inicio, mis reservas, perfil, quiénes somos, cerrar sesión) en todas las páginas privadas.
 
 ### 2.2 Requisitos no funcionales
 
-- **RNF-01 (accesibilidad):** EL SISTEMA usará un texto base de al menos 18 px, buen contraste, botones de al menos 48 px y etiquetas siempre visibles en los formularios.
+- **RNF-01 (accesibilidad):** EL SISTEMA usará un texto base de al menos 18 px con interlineado 1,5, buen contraste, botones de al menos 48 px, etiquetas siempre visibles en los formularios, foco visible al navegar con teclado, errores escritos en la página (nunca solo con color), un solo botón principal por pantalla y un enlace «Saltar al contenido».
 - **RNF-02 (adaptación):** EL SISTEMA se verá y funcionará correctamente en móvil y en escritorio.
-- **RNF-03 (contraseña):** EL SISTEMA no mostrará la contraseña en pantalla mientras se escribe, salvo que el usuario lo pida expresamente.
+- **RNF-03 (contraseña):** EL SISTEMA no mostrará la contraseña en pantalla mientras se escribe, salvo que el usuario lo pida expresamente mediante un botón de mostrar/ocultar.
 - **RNF-04 (seguridad):** EL SISTEMA guardará las contraseñas cifradas, usará consultas preparadas y escapará todo texto introducido por el usuario antes de mostrarlo.
 - **RNF-05 (mensajes):** EL SISTEMA mostrará todos los textos y errores en español, con frases cortas y lenguaje llano, y nunca mostrará errores técnicos de PHP o MySQL.
 - **RNF-06 (ejecución con Docker):** EL SISTEMA incluirá un `Dockerfile` y un `docker-compose.yml` que levanten la web (PHP 8 + Apache) y su base de datos (MySQL 8) con un solo comando (`docker compose up -d`), sin instalar PHP ni MySQL en la máquina anfitriona, y quedará accesible en `http://localhost:8000`.
-- **RNF-07 (base de datos reproducible):** AL arrancar el contenedor por primera vez, EL SISTEMA creará la base de datos e importará `sql/schema.sql` y `sql/datos.sql` automáticamente, de modo que `docker compose down -v && docker compose up -d` deje el sistema listo para usarse.
+- **RNF-07 (base de datos reproducible):** AL arrancar el contenedor por primera vez, EL SISTEMA creará la base de datos e importará `sql/schema.sql` y `sql/datos.sql` automáticamente respetando la codificación UTF-8 de los datos, de modo que `docker compose down -v && docker compose up -d` deje el sistema listo para usarse.
 - **RNF-08 (estructura):** EL SISTEMA tendrá todo su código en la carpeta `src/` (páginas, `includes/`, `css/`, `js/` e `img/`), que será la raíz web (DocumentRoot). `sql/`, `specs/` y `docs/` quedarán fuera de la web. Las URLs no cambian (`http://localhost:8000/login.php`).
-- **RNF-09 (identidad visual):** EL SISTEMA usará la paleta y la tipografía del diseño (turquesa `#00a7b5`, naranja, texto `#101828`, fuentes Arimo e Inter servidas desde el propio sitio) manteniendo la misma pantalla en las 9 páginas. Los mínimos de accesibilidad de RNF-01 prevalecen siempre sobre el diseño.
+- **RNF-09 (identidad visual):** EL SISTEMA usará la paleta y la tipografía del diseño (turquesa `#00a7b5`, naranja, texto `#101828`, fuentes Arimo e Inter servidas desde el propio sitio) manteniendo la misma pantalla en las 10 páginas. Los mínimos de accesibilidad de RNF-01 prevalecen siempre sobre el diseño.
+- **RNF-10 (codificación):** EL SISTEMA usará UTF-8 de extremo a extremo —ficheros, importación de `sql/schema.sql` y `sql/datos.sql`, conexión a la base de datos y HTML— de modo que las tildes, la ñ y la ç se guarden y se muestren correctamente.
 
 ### 2.3 Casos límite
 
@@ -93,8 +95,8 @@ Pagos online, roles de guía y administrador, cancelar o reprogramar reservas, l
 
 La web está terminada cuando:
 - Se puede recorrer el flujo completo: registro → login → inicio → categoría → reservar → mis reservas → perfil → cerrar sesión.
-- Todos los requisitos RF-01 a RF-20 se cumplen y están marcados en la tabla de validación (apartado 5).
-- Todos los casos límite CL-01 a CL-10 se comportan como indica la tabla.
+- Todos los requisitos RF-01 a RF-22 se cumplen y están marcados en la tabla de validación (apartado 5).
+- Todos los casos límite CL-01 a CL-11 se comportan como indica la tabla.
 - `docker compose up -d` levanta la web y la base de datos y el flujo completo se recorre en `http://localhost:8000` (RNF-06 y RNF-07).
 - El código de la aplicación vive en `src/`, que es la raíz web, y `sql/`, `specs/` y `docs/` no son accesibles por HTTP (RNF-08).
 - `specs/spec001-mvp/spec.md` y el código coinciden.
@@ -109,10 +111,10 @@ Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe
 | DA-02 | ¿Pueden existir dos personas con el mismo nombre y apellidos?      | No (`UNIQUE`); si pasa, hay que añadir otro identificador                                                         | **Cerrada (15/10/2026):** no. Se comparan sin distinguir mayúsculas, tildes ni espacios sobrantes (collation `utf8mb4_unicode_ci`). Limitación asumida (plan D4). Ver RF-05, CL-01 y CL-09 |
 | DA-03 | ¿Se puede cancelar una reserva?                                    | No                                                                                                                | **Cerrada (15/10/2026):** no; fuera de alcance de esta versión                                                                                                                             |
 | DA-04 | ¿Hay límite de personas por actividad y día?                       | No                                                                                                                | **Cerrada (15/10/2026):** no; fuera de alcance de esta versión                                                                                                                             |
-| DA-05 | ¿Qué información lleva cada actividad (horario, lugar, precio)?    | Nombre, descripción y categoría                                                                                   | **Abierta.** Mientras tanto no se añaden horario, lugar ni precio. Conviene cerrarla antes de F1-01, porque cambia `schema.sql` y `datos.sql`                                              |
+| DA-05 | ¿Qué información lleva cada actividad (horario, lugar, precio)?    | Nombre, descripción y categoría                                                                                   | **Cerrada (16/10/2026):** nombre, descripción y categoría; sin horario, lugar ni precio. No cambia `schema.sql` ni `datos.sql`                                                              |
 | DA-06 | ¿Qué datos se muestran en el perfil además del nombre y apellidos? | Solo nombre y apellidos                                                                                           | **Cerrada (15/10/2026):** solo nombre y apellidos (RF-18)                                                                                                                                  |
 | DA-07 | ¿Qué se considera un nombre y apellidos válidos?                   | Nombre de 2 a 50 caracteres y apellidos de 2 a 80; solo letras (con tildes, ñ, ç, ü), espacios, guion y apóstrofo | **Cerrada (15/10/2026):** según el valor por defecto. Ver RF-04 y RF-21                                                                                                                    |
-| DA-08 | ¿Hasta cuánto tiempo vista se puede reservar?                      | Sin límite superior (solo se rechazan los días anteriores a hoy y las fechas inexistentes)                        | **Abierta.** Por decidir                                                                                                                                                                   |
+| DA-08 | ¿Hasta cuánto tiempo vista se puede reservar?                      | Sin límite superior (solo se rechazan los días anteriores a hoy y las fechas inexistentes)                        | **Cerrada (16/10/2026):** sin límite superior; solo se rechazan los días anteriores a hoy y las fechas inexistentes                                                                       |
 
 ---
 
@@ -140,10 +142,13 @@ Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe
 | RF-18           | F5-01                             |
 | RF-19           | F5-02                             |
 | RF-20           | F0-05, F5-03                      |
+| RF-21           | F2-02, F2-03                      |
+| RF-22           | F2-01                             |
 | RNF-01 a RNF-05 | F0-04, F0-06, F6-01, F6-03, F6-04 |
 | RNF-06, RNF-07  | F0-03, F1-02, F1-03               |
 | RNF-08          | F0-02, F0-03                      |
 | RNF-09          | F7-01, F7-02, F7-03               |
+| RNF-10          | F1-01, F1-02, F0-03               |
 | CL-01 a CL-11   | F6-02                             |
 
 ---
@@ -174,6 +179,8 @@ Se rellena al final (tarea F6-05 y F6-07). Marca `[x]` cuando el requisito se ha
 | RF-18 | `perfil.php` muestra el nombre y apellidos correctos | [ ] |
 | RF-19 | `quienes_somos.php` se abre desde el menú | [ ] |
 | RF-20 | El menú es igual y funciona en todas las páginas privadas | [ ] |
+| RF-21 | Registrar con un nombre con caracteres no permitidos o una contraseña fuera de rango indica qué falla y no crea la cuenta | [ ] |
+| RF-22 | Abrir `index.php` con sesión lleva a `inicio.php`; sin sesión, a `login.php` | [ ] |
 | RNF-01 | Texto de al menos 18 px, botones grandes y etiquetas visibles | [ ] |
 | RNF-02 | Se ve bien en móvil y escritorio | [ ] |
 | RNF-03 | La contraseña se oculta al escribirla | [ ] |
@@ -182,5 +189,6 @@ Se rellena al final (tarea F6-05 y F6-07). Marca `[x]` cuando el requisito se ha
 | RNF-06 | `docker compose up -d` levanta web y base de datos y se abre `http://localhost:8000` | [ ] |
 | RNF-07 | Tras `docker compose down -v && docker compose up -d`, la base de datos tiene las 4 tablas y las 12 actividades | [ ] |
 | RNF-08 | El código está en `src/`, las páginas se sirven en `http://localhost:8000/login.php` y `sql/`, `specs/` y `docs/` dan error por HTTP | [ ] |
-| RNF-09 | Las 9 páginas usan la paleta y las fuentes del diseño, con los mínimos de accesibilidad intactos | [ ] |
-| CL-01 a CL-10 | Cada caso límite se prueba y se comporta como indica la tabla del apartado 2.3 | [ ] |
+| RNF-09 | Las 10 páginas usan la paleta y las fuentes del diseño, con los mínimos de accesibilidad intactos | [ ] |
+| RNF-10 | Los textos con tildes y ñ de categorías y actividades se ven correctamente | [ ] |
+| CL-01 a CL-11 | Cada caso límite se prueba y se comporta como indica la tabla del apartado 2.3 | [ ] |
