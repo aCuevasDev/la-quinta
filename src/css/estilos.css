@@ -1,0 +1,331 @@
+/* La Quinta · CSS base accesible (RNF-01, RNF-02, constitution regla 10) */
+
+:root {
+    --color-texto: #1a1a1a;
+    --color-fondo: #fdfcf8;
+    --color-primario: #0b4f6c;
+    --color-primario-oscuro: #073b52;
+    --color-exito: #1b5e20;
+    --color-exito-fondo: #e6f4ea;
+    --color-error: #8a1c1c;
+    --color-error-fondo: #fbeaea;
+    --color-borde: #c9c4b8;
+    --radio: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 18px; /* texto base ≥ 18 px (RNF-01) */
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5; /* interlineado 1,5 */
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+}
+
+/* Enlace «Saltar al contenido» (F0-05) */
+.salto-contenido {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--color-primario);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    z-index: 100;
+}
+
+.salto-contenido:focus {
+    left: 0.5rem;
+    top: 0.5rem;
+}
+
+.cabecera {
+    background: var(--color-primario);
+    color: #fff;
+    padding: 0.75rem 1rem;
+}
+
+.cabecera .marca {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.cabecera .marca a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu {
+    background: #fff;
+    border-bottom: 2px solid var(--color-borde);
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: 60rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.menu a {
+    display: inline-block;
+    padding: 0.85rem 0.75rem;
+    min-height: 48px; /* controles ≥ 48 px */
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu a:hover,
+.menu a:focus {
+    text-decoration: underline;
+}
+
+.contenido {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 1.4rem;
+}
+
+a {
+    color: var(--color-primario-oscuro);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #b26a00;
+    outline-offset: 2px;
+}
+
+/* Botones: grandes y con separación (RNF-01) */
+.boton {
+    display: inline-block;
+    min-height: 48px;
+    padding: 0.7rem 1.4rem;
+    margin: 0.25rem 0;
+    background: var(--color-primario);
+    color: #fff;
+    border: 2px solid var(--color-primario);
+    border-radius: var(--radio);
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.boton:hover {
+    background: var(--color-primario-oscuro);
+    border-color: var(--color-primario-oscuro);
+}
+
+.boton-secundario {
+    min-height: 48px;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    background: #fff;
+    color: var(--color-primario);
+    border: 2px solid var(--color-primario);
+    border-radius: var(--radio);
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+/* Tarjetas de categorías y actividades (F3-04) */
+.tarjetas {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.tarjeta {
+    background: #fff;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tarjeta h2 {
+    margin: 0;
+}
+
+.tarjeta p {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.tarjeta .boton {
+    align-self: flex-start;
+}
+
+/* Formularios: etiquetas siempre visibles (RNF-01) */
+form {
+    max-width: 34rem;
+    margin-top: 1rem;
+}
+
+.campo {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.6rem 0.75rem;
+    font-size: 1rem;
+    border: 2px solid var(--color-borde);
+    border-radius: var(--radio);
+    background: #fff;
+    color: var(--color-texto);
+}
+
+.pista {
+    margin: 0.35rem 0 0;
+    font-size: 0.9rem;
+    color: #4a4a4a;
+}
+
+/* Mensajes de éxito y error: con texto, no solo color (F0-06) */
+.mensaje {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radio);
+    border: 2px solid;
+    font-weight: 600;
+}
+
+.mensaje-exito {
+    color: var(--color-exito);
+    background: var(--color-exito-fondo);
+    border-color: var(--color-exito);
+}
+
+.mensaje-error {
+    color: var(--color-error);
+    background: var(--color-error-fondo);
+    border-color: var(--color-error);
+}
+
+.resumen-errores {
+    padding: 0.85rem 1rem;
+    border: 2px solid var(--color-error);
+    border-radius: var(--radio);
+    background: var(--color-error-fondo);
+    color: var(--color-error);
+}
+
+.resumen-errores ul {
+    margin: 0.5rem 0 0;
+}
+
+.intro,
+.ayuda {
+    font-size: 1.05rem;
+}
+
+.etiqueta {
+    display: inline-block;
+    background: #eceadf;
+    border-radius: 999px;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.migas {
+    font-size: 0.95rem;
+}
+
+/* Tabla de reservas */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.tabla th,
+.tabla td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 2px solid var(--color-borde);
+}
+
+.tabla thead th {
+    background: #eceadf;
+}
+
+/* Datos del perfil */
+.datos {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.35rem 1rem;
+    margin: 1rem 0;
+}
+
+.datos dt {
+    font-weight: 700;
+}
+
+.datos dd {
+    margin: 0;
+}
+
+.pie {
+    background: #eceadf;
+    color: #333;
+    padding: 1rem;
+    text-align: center;
+}
+
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 30rem) {
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .menu ul {
+        flex-direction: column;
+    }
+}

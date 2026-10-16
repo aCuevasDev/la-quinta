@@ -36,7 +36,7 @@ Proyecto desarrollado con **Spec-Driven Development (SDD)**: primero se acuerda 
 
 - PHP 8 o superior
 - MySQL o MariaDB
-- Un entorno local: [completar: XAMPP / Docker / `php -S`]
+- Un entorno local: Docker
 
 ### 2. Obtener el código
 

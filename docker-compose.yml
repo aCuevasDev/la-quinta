@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:80"
+    volumes:
+      # Raíz web de Apache: todo el código servido (RNF-08)
+      - ./src:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: la_quinta
+      DB_USER: la_quinta
+      DB_PASSWORD: la_quinta
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: la_quinta
+      MYSQL_USER: la_quinta
+      MYSQL_PASSWORD: la_quinta
+    volumes:
+      - db_data:/var/lib/mysql
+      # schema.sql y datos.sql se importan solos al primer arranque (RNF-07).
+      # Se renombran al montarlos para que el esquema se ejecute antes que los datos.
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./sql/datos.sql:/docker-entrypoint-initdb.d/02-datos.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  db_data:

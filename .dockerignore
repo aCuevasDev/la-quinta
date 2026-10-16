@@ -1,0 +1,6 @@
+.git
+.gitignore
+db_data
+specs
+docs
+*.md
