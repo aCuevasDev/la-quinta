@@ -1,6 +1,9 @@
 -- La Quinta · esquema de la base de datos
 -- Importar antes que datos.sql. Se puede volver a importar sin problema.
 
+-- Fuerza la lectura del fichero como UTF-8, aunque el cliente mysql use latin1 (RNF-10).
+SET NAMES utf8mb4;
+
 CREATE DATABASE IF NOT EXISTS la_quinta
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;

@@ -23,7 +23,7 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 
 ## F1 · Base de datos
 - [x] F1-01 · Escribir `sql/schema.sql` con las tablas `usuarios`, `categorias`, `actividades` y `reservas` (claves foráneas y `UNIQUE`) → `plan` Datos · se importa sin errores y las 4 tablas existen
-- [x] F1-02 · Escribir `sql/datos.sql` con 4 categorías (con su descripción breve) y 12 actividades (3 por categoría) → `spec` RF-09, RF-10 · tras importar, cada categoría tiene exactamente 3 actividades
+- [x] F1-02 · Escribir `sql/datos.sql` con 4 categorías (con su descripción breve) y 12 actividades (3 por categoría) → `spec` RF-09, RF-10, RNF-10 · tras importar, cada categoría tiene exactamente 3 actividades y las tildes se ven bien
 - [x] F1-03 · `src/includes/db.php` con la conexión PDO leyendo host, usuario y contraseña de variables de entorno (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) con valores por defecto para XAMPP (errores controlados, sin mostrar datos técnicos) → `constitution` reglas 4 y 5 · una página de prueba conecta dentro de Docker y, con datos de conexión falsos, muestra un mensaje amable
 - [x] F1-04 · Comprobar las restricciones en la base de datos (usuario duplicado, reserva duplicada, actividad inexistente) → `constitution` regla 9 · cada intento inválido falla en MySQL
 

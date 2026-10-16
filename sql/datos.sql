@@ -1,6 +1,9 @@
 -- La Quinta · datos de ejemplo (4 categorías y 12 actividades)
 -- Usar solo datos ficticios; nunca datos reales de personas.
 
+-- Fuerza la lectura del fichero como UTF-8, aunque el cliente mysql use latin1 (RNF-10).
+SET NAMES utf8mb4;
+
 USE la_quinta;
 
 -- Categorías
