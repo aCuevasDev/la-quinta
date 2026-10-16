@@ -6,6 +6,8 @@ services:
     volumes:
       # Raíz web de Apache: todo el código servido (RNF-08)
       - ./src:/var/www/html
+      # Publica en desarrollo las imágenes alojadas fuera de src/
+      - ./assets/img:/var/www/html/img:ro
     environment:
       DB_HOST: db
       DB_PORT: "3306"

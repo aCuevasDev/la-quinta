@@ -19,13 +19,19 @@ $publica = $publica ?? false;
 
     <header class="cabecera">
         <div class="cabecera__interior">
-            <p class="marca">
-                <?php if ($publica): ?>
-                    La Quinta
-                <?php else: ?>
-                    <a href="inicio.php">La Quinta</a>
-                <?php endif; ?>
-            </p>
+            <?php if ($publica): ?>
+                <p class="marca">
+                    <img class="marca__logo" src="/img/LogoLaQuinta.jpg" alt="" aria-hidden="true">
+                    <span>La Quinta</span>
+                </p>
+            <?php else: ?>
+                <p class="marca">
+                    <a href="inicio.php">
+                        <img class="marca__logo" src="/img/LogoLaQuinta.jpg" alt="" aria-hidden="true">
+                        <span>La Quinta</span>
+                    </a>
+                </p>
+            <?php endif; ?>
 
             <?php if (!$publica): ?>
                 <nav class="menu" aria-label="Menú principal">

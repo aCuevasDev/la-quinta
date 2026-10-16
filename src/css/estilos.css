@@ -208,6 +208,9 @@ textarea:focus-visible {
 }
 
 .marca {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
@@ -218,9 +221,16 @@ textarea:focus-visible {
 .marca a {
     display: inline-flex;
     align-items: center;
+    gap: 0.5rem;
     min-height: 48px;
     color: inherit;
     text-decoration: none;
+}
+
+.marca__logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
 }
 
 .menu ul {

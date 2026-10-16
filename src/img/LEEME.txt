@@ -1,1 +1,1 @@
-# Carpeta de imágenes (logos, iconos). Vacía por ahora.
+# Imágenes web copiadas desde assets/ durante la construcción de Docker.
