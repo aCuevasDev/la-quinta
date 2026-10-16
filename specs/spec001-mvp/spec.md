@@ -60,6 +60,9 @@
 - **RNF-03 (contraseña):** EL SISTEMA no mostrará la contraseña en pantalla mientras se escribe, salvo que el usuario lo pida expresamente.
 - **RNF-04 (seguridad):** EL SISTEMA guardará las contraseñas cifradas, usará consultas preparadas y escapará todo texto introducido por el usuario antes de mostrarlo.
 - **RNF-05 (mensajes):** EL SISTEMA mostrará todos los textos y errores en español, con frases cortas y lenguaje llano, y nunca mostrará errores técnicos de PHP o MySQL.
+- **RNF-06 (ejecución con Docker):** EL SISTEMA incluirá un `Dockerfile` y un `docker-compose.yml` que levanten la web (PHP 8 + Apache) y su base de datos (MySQL 8) con un solo comando (`docker compose up -d`), sin instalar PHP ni MySQL en la máquina anfitriona, y quedará accesible en `http://localhost:8000`.
+- **RNF-07 (base de datos reproducible):** AL arrancar el contenedor por primera vez, EL SISTEMA creará la base de datos e importará `sql/schema.sql` y `sql/datos.sql` automáticamente, de modo que `docker compose down -v && docker compose up -d` deje el sistema listo para usarse.
+- **RNF-08 (estructura):** EL SISTEMA tendrá todo su código en la carpeta `src/` (páginas, `includes/`, `css/`, `js/` e `img/`), que será la raíz web (DocumentRoot). `sql/`, `specs/` y `docs/` quedarán fuera de la web. Las URLs no cambian (`http://localhost:8000/login.php`).
 
 ### 2.3 Casos límite
 
@@ -91,6 +94,8 @@ La web está terminada cuando:
 - Se puede recorrer el flujo completo: registro → login → inicio → categoría → reservar → mis reservas → perfil → cerrar sesión.
 - Todos los requisitos RF-01 a RF-20 se cumplen y están marcados en la tabla de validación (apartado 5).
 - Todos los casos límite CL-01 a CL-10 se comportan como indica la tabla.
+- `docker compose up -d` levanta la web y la base de datos y el flujo completo se recorre en `http://localhost:8000` (RNF-06 y RNF-07).
+- El código de la aplicación vive en `src/`, que es la raíz web, y `sql/`, `specs/` y `docs/` no son accesibles por HTTP (RNF-08).
 - `specs/spec001-mvp/spec.md` y el código coinciden.
 
 ### 3.3 Dudas abiertas
@@ -135,6 +140,8 @@ Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe
 | RF-19           | F5-02                             |
 | RF-20           | F0-05, F5-03                      |
 | RNF-01 a RNF-05 | F0-04, F0-06, F6-01, F6-03, F6-04 |
+| RNF-06, RNF-07  | F0-03, F1-02, F1-03               |
+| RNF-08          | F0-02, F0-03                      |
 | CL-01 a CL-11   | F6-02                             |
 
 ---
@@ -170,4 +177,7 @@ Se rellena al final (tarea F6-05 y F6-07). Marca `[x]` cuando el requisito se ha
 | RNF-03 | La contraseña se oculta al escribirla | [ ] |
 | RNF-04 | Sin SQL concatenado, contraseñas cifradas y salida escapada (revisión de código) | [ ] |
 | RNF-05 | Todos los textos en español y sin errores técnicos a la vista | [ ] |
+| RNF-06 | `docker compose up -d` levanta web y base de datos y se abre `http://localhost:8000` | [ ] |
+| RNF-07 | Tras `docker compose down -v && docker compose up -d`, la base de datos tiene las 4 tablas y las 12 actividades | [ ] |
+| RNF-08 | El código está en `src/`, las páginas se sirven en `http://localhost:8000/login.php` y `sql/`, `specs/` y `docs/` dan error por HTTP | [ ] |
 | CL-01 a CL-10 | Cada caso límite se prueba y se comporta como indica la tabla del apartado 2.3 | [ ] |
