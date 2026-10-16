@@ -21,6 +21,7 @@ seguridad básica > claridad y accesibilidad > que funcione > estética
 11. **Todo texto visible en español**, con frases cortas y lenguaje llano.
 12. **La spec es la única fuente de verdad.** Todo comportamiento visible debe salir de un RF, RNF o CL de `specs/spec001-mvp/spec.md`. Lo que no está en la spec no se implementa..
 13. **No introduzcas tecnologías** que no estén en la tabla del §2 de `AGENTS.md`.
+14. **Los documentos no se tocan sin permiso.** Ningún documento (`spec.md`, `plan.md`, `tasks.md`, `AGENTS.md`, `constitution.md`, `README.md`, `CHANGELOG.md` y `docs/`) se modifica sin consultarlo y obtener el visto bueno. Si un cambio necesita tocar documentos: **primero se pregunta**, después se actualiza la spec y solo entonces se implementa el código.
 
 ## Prohibiciones rápidas
 

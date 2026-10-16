@@ -51,8 +51,9 @@ src/                 RAÍZ WEB (DocumentRoot): aquí vive todo el código servid
     auth.php         inicia sesión y redirige a login si no hay usuario (solo páginas privadas)
     cabecera.php     cabecera y navegación comunes
     pie.php          pie común
+    funciones.php    utilidades (escapar, validar, mensajes, fechas)
   css/  js/  img/
-  login.php  registro.php  logout.php
+  index.php  login.php  registro.php  logout.php
   inicio.php  categoria.php  reserva.php
   mis_reservas.php  perfil.php  quienes_somos.php
 ```
@@ -67,6 +68,8 @@ Modelo de datos (relaciones 1:N):
 Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 
 ## 5. Cómo trabajar (flujo obligatorio)
+
+0. **No modifiques ningún documento sin permiso.** Ni `spec.md`, ni `plan.md`, ni `tasks.md`, ni `AGENTS.md`, ni `constitution.md`, ni `README.md`, ni `CHANGELOG.md` ni `docs/`. Si un cambio exige tocarlos: **para y pregunta**; con el visto bueno, actualiza primero la spec, luego plan y tasks, y por último el código.
 
 1. Abre `specs/spec001-mvp/tasks.md` y toma **la primera tarea sin marcar**.
 2. Lee `constitution.md`, el apartado de `specs/spec001-mvp/spec.md` que cita la tarea y, si hace falta, `specs/spec001-mvp/plan.md`.
@@ -147,7 +150,7 @@ Docker es el entorno principal (RNF-06 y RNF-07 de la spec). La app debe levanta
   - `db`: imagen `mysql:8.4`, credenciales de desarrollo, volumen persistente (`db_data:/var/lib/mysql`) y `healthcheck` con `mysqladmin ping`.
 - Variables de entorno del servicio `web`: `DB_HOST: db`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
 - `src/includes/db.php` es el **único** sitio que abre la conexión: lee `DB_HOST`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` con `getenv()`, con valores por defecto para XAMPP (`localhost`, `root`). Nunca escribir el host `localhost` a fuego.
-- Importación automática: monta `./sql` en `/docker-entrypoint-initdb.d` para que `schema.sql` y `datos.sql` se carguen al crear el contenedor (RNF-07).
+- Importación automática: monta `./sql/schema.sql` y `./sql/datos.sql` en `/docker-entrypoint-initdb.d` como `01-schema.sql` y `02-datos.sql`, para que el esquema se ejecute antes que los datos al crear el contenedor (RNF-07).
 - `.dockerignore`: `.git`, `db_data` y cualquier cosa que no deba copiarse en la imagen.
 - Puerto local: `http://localhost:8000`.
 - Comandos: `docker compose up -d`, `docker compose down` y `docker compose down -v && docker compose up -d` para recrear la base de datos desde cero.

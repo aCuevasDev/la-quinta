@@ -1,0 +1,5 @@
+# Datos locales del contenedor (nunca se suben)
+db_data/
+
+# Registros
+*.log

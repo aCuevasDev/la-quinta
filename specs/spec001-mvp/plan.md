@@ -27,6 +27,7 @@ Todas las páginas se crean en `src/` (por ejemplo, `src/login.php`); en la tabl
 
 | Página | Pública | Qué hace | Requisitos |
 |---|---|---|---|
+| `index.php` | — | Redirige a `inicio.php` o `login.php` según haya sesión | RF-07 |
 | `login.php` | Sí | Inicio de sesión y enlace a registro | RF-01 a RF-03, RF-06 |
 | `registro.php` | Sí | Crear cuenta | RF-04 a RF-06 |
 | `logout.php` | No | Cerrar sesión | RF-08 |
@@ -47,6 +48,7 @@ La navegación común (RF-20) se incluye desde `cabecera.php` en todas las pági
   y nunca en `login.php`, `registro.php` ni `logout.php`, que llaman a
   `session_start()` por su cuenta (si no, se redirigirían a sí mismas en bucle).
 - `cabecera.php` y `pie.php`: HTML común, navegación y enlace «Saltar al contenido».
+- `funciones.php`: utilidades compartidas (escapar con `e()`, leer variables de entorno, mensajes de éxito/error, validar nombre, apellidos, contraseña y fechas).
 
 ### Flujo de sesión
 
