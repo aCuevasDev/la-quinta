@@ -8,8 +8,8 @@ CREATE DATABASE IF NOT EXISTS la_quinta
 USE la_quinta;
 
 -- Personas registradas. La identidad es nombre + apellidos (D4, DA-02).
--- La collation utf8mb4_unicode_ci no distingue mayúsculas, tildes ni espacios
--- sobrantes al comparar (CL-09).
+-- La collation utf8mb4_unicode_ci no distingue mayúsculas ni tildes al comparar (CL-09);
+-- los espacios sobrantes se normalizan en PHP antes de guardar y de buscar (RF-02, RF-04).
 CREATE TABLE IF NOT EXISTS usuarios (
   id            INT AUTO_INCREMENT PRIMARY KEY,
   nombre        VARCHAR(50)  NOT NULL,
