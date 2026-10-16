@@ -19,20 +19,25 @@ Público con poca soltura digital. Prioridad: seguridad básica > claridad y acc
 | Acceso a datos       | PDO con consultas preparadas                                   |
 | Front                | HTML5, CSS y JavaScript sin librerías                          |
 | Sesiones             | Sesiones de PHP (`$_SESSION`)                                  |
-| Entorno local        | XAMPP / Docker / `php -S localhost:8000`                       |
+| Entorno local        | **Docker (Docker Compose)**: `docker compose up -d` · alternativa XAMPP / `php -S localhost:8000` |
 | Control de versiones | Git + GitHub                                                   |
 | Pruebas              | Comprobación manual con los «Hecho cuando» de `specs/spec001-mvp/tasks.md` |
 
-Comandos útiles:
-- Servidor local: `php -S localhost:8000` (o el que uséis)
-- Crear tablas: importar `sql/schema.sql`
-- Cargar datos de ejemplo: importar `sql/datos.sql`
+Comandos útiles (Docker, entorno principal):
+- Levantar la app: `docker compose up -d` → `http://localhost:8000`
+- Parar: `docker compose down`
+- Resetear la base de datos: `docker compose down -v && docker compose up -d`
+- Ver registros: `docker compose logs -f web`
+- Alternativa sin Docker: `php -S localhost:8000` con XAMPP/MySQL local
+- Tablas y datos: `sql/schema.sql` y `sql/datos.sql` (se importan solos al primer arranque del contenedor)
 
 ## 3. Estructura de código
 
 ```
 constitution.md      reglas globales e innegociables
 AGENTS.md            este archivo
+Dockerfile           imagen PHP 8 + Apache (web)
+docker-compose.yml   levanta web + MySQL 8 con un comando
 specs/
   spec.md            QUÉ y POR QUÉ (requisitos en EARS, casos límite, dudas abiertas)
   plan.md            CÓMO técnico
@@ -91,6 +96,7 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 | Mis reservas, perfil, quiénes somos    | `specs/spec001-mvp/spec.md` (Otras páginas, RF-16 a RF-20)                          |
 | Tablas y datos                         | `sql/schema.sql`, `sql/datos.sql`                                       |
 | Estructura y módulos                   | `specs/spec001-mvp/plan.md`                                                |
+| Docker y entorno                       | §8 «Docker» de este archivo y `docker-compose.yml`                      |
 | Estilo y accesibilidad                 | `constitution.md` (regla 10) y §8 de este archivo                       |
 
 ## 7. Definición de hecho (cualquier tarea)
@@ -131,6 +137,19 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 - Antes de dar una tarea por hecha, prueba el caso feliz y cada caso límite de su RF.
 - Recorrido completo de control: registro → login → inicio → categoría → reservar → mis reservas → perfil → cerrar sesión.
 - Usa solo los datos de ejemplo de `sql/datos.sql`; nunca datos reales de personas.
+
+### Docker (`Dockerfile`, `docker-compose.yml`)
+Docker es el entorno principal (RNF-06 y RNF-07 de la spec). La app debe levantarse con un solo comando y sin instalar PHP ni MySQL en la máquina.
+- `Dockerfile`: imagen base `php:8.3-apache` + `docker-php-ext-install pdo_mysql`. Copia el proyecto en `/var/www/html`.
+- `docker-compose.yml`: dos servicios.
+  - `web`: construye desde el `Dockerfile`, publica `8000:80`, monta el código en vivo (`.:/var/www/html`) y `depends_on: db` con `condition: service_healthy`.
+  - `db`: imagen `mysql:8.4`, credenciales de desarrollo, volumen persistente (`db_data:/var/lib/mysql`) y `healthcheck` con `mysqladmin ping`.
+- Variables de entorno del servicio `web`: `DB_HOST: db`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`.
+- `includes/db.php` es el **único** sitio que abre la conexión: lee `DB_HOST`, `DB_NAME`, `DB_USER` y `DB_PASSWORD` con `getenv()`, con valores por defecto para XAMPP (`localhost`, `root`). Nunca escribir el host `localhost` a fuego.
+- Importación automática: monta `./sql` en `/docker-entrypoint-initdb.d` para que `schema.sql` y `datos.sql` se carguen al crear el contenedor (RNF-07).
+- `.dockerignore`: `.git`, `db_data` y cualquier cosa que no deba copiarse en la imagen.
+- Puerto local: `http://localhost:8000`.
+- Comandos: `docker compose up -d`, `docker compose down` y `docker compose down -v && docker compose up -d` para recrear la base de datos desde cero.
 
 ## 9. Prohibiciones rápidas
 

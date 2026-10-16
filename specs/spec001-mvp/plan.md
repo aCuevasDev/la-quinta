@@ -103,13 +103,14 @@ El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de sal
 | D8 | Mismo mensaje de error si falla el login, sin decir qué dato falló | No ayudar a adivinar usuarios existentes |
 | D9 | No se piden ni guardan datos de salud ni datos sensibles | Reduce el riesgo; si se añadieran en el futuro habría que rehacer la seguridad |
 | D10 | Mejora opcional: token CSRF en los formularios | Se valorará si hay tiempo en F6 |
+| D11 | Ejecución con **Docker Compose** (PHP 8 + Apache y MySQL 8) | Entorno reproducible con un solo comando (`docker compose up -d`); evita depender de XAMPP y de lo instalado en cada máquina. Ver RNF-06 y RNF-07 |
 
 ## 5. Fases
 
 ### F0 · Cimientos
 - **Objetivo:** proyecto ejecutable en local, con estructura, estilo común y control de versiones.
-- **Entregables:** repositorio en GitHub con `constitution.md`, `AGENTS.md` y `specs/`; carpetas y páginas vacías; entorno local funcionando; CSS base accesible; cabecera y pie comunes.
-- **Hecho cuando:** una página de prueba se ve en local usando cabecera, pie y estilo comunes.
+- **Entregables:** repositorio en GitHub con `constitution.md`, `AGENTS.md` y `specs/`; carpetas y páginas vacías; `Dockerfile`, `docker-compose.yml` y `.dockerignore` (RNF-06); CSS base accesible; cabecera y pie comunes.
+- **Hecho cuando:** `docker compose up -d` levanta la web en `http://localhost:8000` y una página de prueba se ve usando cabecera, pie y estilo comunes.
 
 ### F1 · Base de datos
 - **Objetivo:** esquema relacional y datos de ejemplo cargados desde cero.
@@ -151,6 +152,7 @@ El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de sal
 | Dos personas con el mismo nombre y apellidos | Limitación asumida por D4; si hay que resolverla, añadir un campo identificador (por ejemplo, teléfono o usuario) y cambiar `specs/spec001-mvp/spec.md` antes de tocar código |
 | Reservas duplicadas o con fecha pasada | Validación en PHP y `UNIQUE` en la base de datos |
 | Personas mayores no logran usar la web | Texto grande, botones grandes, mensajes claros, prueba con usuarios reales en F6-06 |
+| El contenedor no conecta con la base de datos | `includes/db.php` lee la conexión de variables de entorno (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) con valores por defecto para XAMPP; host `db` dentro de Compose |
 | Spec y código se desincronizan | Cada cambio pasa primero por `specs/spec001-mvp/spec.md`; revisión final en F6-07 |
 | Errores técnicos visibles al usuario | Excepciones controladas y errores de PHP ocultos en la versión final (F6-03) |
 

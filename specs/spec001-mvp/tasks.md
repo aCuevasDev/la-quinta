@@ -11,17 +11,17 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 ## F0 · Cimientos
 - [ ] F0-01 · Crear el repositorio Git, subirlo a GitHub y añadir `constitution.md`, `AGENTS.md` y la carpeta `specs/spec001-mvp/` con `spec.md`, `plan.md` y `tasks.md` → `AGENTS` §3 · el repo está en GitHub con esa estructura
 - [ ] F0-02 · Crear las carpetas y archivos vacíos del proyecto (`includes/`, `sql/`, `css/`, `js/`, `img/` y las 9 páginas `.php`) → `AGENTS` §3 · la estructura coincide con la de `AGENTS.md`
-- [ ] F0-03 · Preparar el entorno local (XAMPP, Docker o `php -S`) y anotarlo en `AGENTS.md` §2 → `AGENTS` §2 · una página `.php` de prueba se ve en el navegador y `[completar]` ya no aparece
+- [ ] F0-03 · Añadir `Dockerfile` (PHP 8 + Apache con `pdo_mysql`), `docker-compose.yml` (web + MySQL 8, volumen de datos y variables de entorno) y `.dockerignore`, y documentar el entorno Docker en `AGENTS.md` §2 y `README.md` → RNF-06, RNF-07 · `docker compose up -d` levanta la web en `http://localhost:8000`, una página `.php` de prueba se ve y `[completar]` ya no aparece
 - [ ] F0-04 · CSS base accesible: texto 18 px, interlineado 1,5, contraste alto, botones ≥ 48 px, foco visible → `constitution` regla 10 · una página de muestra con título, texto, formulario y botón cumple todo
 - [ ] F0-05 · `includes/cabecera.php` y `includes/pie.php` con navegación común y enlace «Saltar al contenido» → RF-20 · se incluyen en una página de prueba y se navega con teclado
 - [ ] F0-06 · Plantilla de mensajes de error y éxito visibles en la página (con texto, no solo color) → `constitution` regla 10 · un mensaje de prueba se ve bien en móvil y escritorio
 
-**Definición de Hecho F0:** el proyecto arranca en local, la estructura está en Git y una página de prueba usa cabecera, pie y estilo comunes.
+**Definición de Hecho F0:** el proyecto arranca con `docker compose up -d`, la estructura está en Git y una página de prueba usa cabecera, pie y estilo comunes.
 
 ## F1 · Base de datos
 - [ ] F1-01 · Escribir `sql/schema.sql` con las tablas `usuarios`, `categorias`, `actividades` y `reservas` (claves foráneas y `UNIQUE`) → `plan` Datos · se importa sin errores y las 4 tablas existen
 - [ ] F1-02 · Escribir `sql/datos.sql` con 4 categorías (con su descripción breve) y 12 actividades (3 por categoría) → `spec` RF-09, RF-10 · tras importar, cada categoría tiene exactamente 3 actividades
-- [ ] F1-03 · `includes/db.php` con la conexión PDO (errores controlados, sin mostrar datos técnicos) → `constitution` reglas 4 y 5 · una página de prueba conecta y, con datos de conexión falsos, muestra un mensaje amable
+- [ ] F1-03 · `includes/db.php` con la conexión PDO leyendo host, usuario y contraseña de variables de entorno (`DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) con valores por defecto para XAMPP (errores controlados, sin mostrar datos técnicos) → `constitution` reglas 4 y 5 · una página de prueba conecta dentro de Docker y, con datos de conexión falsos, muestra un mensaje amable
 - [ ] F1-04 · Comprobar las restricciones en la base de datos (usuario duplicado, reserva duplicada, actividad inexistente) → `constitution` regla 9 · cada intento inválido falla en MySQL
 
 **Definición de Hecho F1:** la base de datos se crea desde cero con dos importaciones y `db.php` es el único sitio donde se abre la conexión.
