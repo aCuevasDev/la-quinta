@@ -1,6 +1,6 @@
 # Spec · La Quinta
 
-> Contrato de qué debe hacer la web. Los requisitos están numerados (RF-xx) y escritos en sintaxis EARS. Cualquier cambio de comportamiento se anota aquí **antes** de tocar el código. Reglas globales: `constitution.md`. Cómo se construye: `specs/plan.md` y `specs/tasks.md`.
+> Contrato de qué debe hacer la web. Los requisitos están numerados (RF-xx) y escritos en sintaxis EARS. Cualquier cambio de comportamiento se anota aquí **antes** de tocar el código. Reglas globales: `constitution.md`. Cómo se construye: `specs/spec001-mvp/plan.md` y `specs/spec001-mvp/tasks.md`.
 
 ---
 
@@ -91,7 +91,7 @@ La web está terminada cuando:
 - Se puede recorrer el flujo completo: registro → login → inicio → categoría → reservar → mis reservas → perfil → cerrar sesión.
 - Todos los requisitos RF-01 a RF-20 se cumplen y están marcados en la tabla de validación (apartado 5).
 - Todos los casos límite CL-01 a CL-10 se comportan como indica la tabla.
-- `spec.md` y el código coinciden.
+- `specs/spec001-mvp/spec.md` y el código coinciden.
 
 ### 3.3 Dudas abiertas
 
@@ -112,7 +112,7 @@ Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe
 
 ## 4. Trazabilidad con el plan y las tareas
 
-| Requisito       | Tareas (`specs/tasks.md`)         |
+| Requisito       | Tareas (`specs/spec001-mvp/tasks.md`)         |
 | --------------- | --------------------------------- |
 | RF-01           | F2-05                             |
 | RF-02           | F2-06                             |

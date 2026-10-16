@@ -38,7 +38,7 @@ Hasta que se cierren, se usan los valores por defecto. «Antes de» indica la fa
 
 | Decisión | Valor por defecto | Antes de |
 |---|---|---|
-| **Confirmar Better Auth en lugar de Auth.js** (`PLAN.md` C1) | Better Auth | F0 |
+| **Confirmar Better Auth en lugar de Auth.js** (`specs/spec001-mvp/plan.md` C1) | Better Auth | F0 |
 | IVA o exención de cada tipo de actividad | 21 % incluido | F3 |
 | Razón social, CIF, domicilio y textos legales revisados por abogado | Plantillas | F7 |
 | Teléfono, horario y responsable del soporte | `SUPPORT_PHONE`, 9–14 h L–V | F2 |
