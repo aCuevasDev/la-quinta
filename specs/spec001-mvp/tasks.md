@@ -13,12 +13,13 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 ## F0 · Cimientos
 - [x] F0-01 · Crear el repositorio Git, subirlo a GitHub y añadir `constitution.md`, `AGENTS.md` y la carpeta `specs/spec001-mvp/` con `spec.md`, `plan.md` y `tasks.md` → `AGENTS` §3 · el repo está en GitHub con esa estructura
 - [x] F0-02 · Crear las carpetas del proyecto: `src/` (con `includes/`, `css/`, `js/`, `img/` y las 9 páginas `.php`) y `sql/` en la raíz → RNF-08, `AGENTS` §3 · la estructura coincide con la de `AGENTS.md`
-- [ ] F0-03 · Añadir `Dockerfile` (PHP 8 + Apache con `pdo_mysql`), `docker-compose.yml` (web + MySQL 8, volumen de datos y variables de entorno) y `.dockerignore`, y documentar el entorno Docker en `AGENTS.md` §2 y `README.md` → RNF-06, RNF-07 · `docker compose up -d` levanta la web en `http://localhost:8000`, una página `.php` de prueba se ve y `[completar]` ya no aparece
+- [x] F0-03 · Añadir `Dockerfile` (PHP 8 + Apache con `pdo_mysql`), `docker-compose.yml` (web + MySQL 8, volumen de datos y variables de entorno) y `.dockerignore` → RNF-06, RNF-07 · `docker compose up -d` levanta la web y `http://localhost:8000/login.php` responde 200 con el formulario de login
 - [x] F0-04 · CSS base accesible: texto 18 px, interlineado 1,5, contraste alto, botones ≥ 48 px, foco visible → `constitution` regla 10 · una página de muestra con título, texto, formulario y botón cumple todo
 - [x] F0-05 · `src/includes/cabecera.php` y `src/includes/pie.php` con navegación común y enlace «Saltar al contenido» → RF-20 · se incluyen en una página de prueba y se navega con teclado
 - [x] F0-06 · Plantilla de mensajes de error y éxito visibles en la página (con texto, no solo color) → `constitution` regla 10 · un mensaje de prueba se ve bien en móvil y escritorio
+- [ ] F0-07 · Documentar el arranque con Docker en `README.md` y `AGENTS.md` §2 → `AGENTS` §2 · el README explica `docker compose up -d` y `grep -R "[completar" .` no devuelve nada
 
-**Definición de Hecho F0:** el proyecto arranca con `docker compose up -d`, la estructura está en Git y una página de prueba usa cabecera, pie y estilo comunes.
+**Definición de Hecho F0:** `bash tests/smoke.sh` pasa en verde, la estructura está en Git y una página de prueba usa cabecera, pie y estilo comunes.
 
 ## F1 · Base de datos
 - [x] F1-01 · Escribir `sql/schema.sql` con las tablas `usuarios`, `categorias`, `actividades` y `reservas` (claves foráneas y `UNIQUE`) → `plan` Datos · se importa sin errores y las 4 tablas existen

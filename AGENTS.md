@@ -21,7 +21,7 @@ Público con poca soltura digital. Prioridad: seguridad básica > claridad y acc
 | Sesiones             | Sesiones de PHP (`$_SESSION`)                                  |
 | Entorno local        | **Docker (Docker Compose)**: `docker compose up -d` · alternativa XAMPP / `php -S localhost:8000 -t src` |
 | Control de versiones | Git + GitHub                                                   |
-| Pruebas              | Comprobación manual con los «Hecho cuando» de `specs/spec001-mvp/tasks.md` |
+| Pruebas              | `bash tests/smoke.sh` (humo) + comprobación manual con los «Hecho cuando» de `specs/spec001-mvp/tasks.md` |
 
 Comandos útiles (Docker, entorno principal):
 - Levantar la app: `docker compose up -d` → `http://localhost:8000`
@@ -30,6 +30,7 @@ Comandos útiles (Docker, entorno principal):
 - Ver registros: `docker compose logs -f web`
 - Alternativa sin Docker: `php -S localhost:8000 -t src` con XAMPP/MySQL local
 - Tablas y datos: `sql/schema.sql` y `sql/datos.sql` (se importan solos al primer arranque del contenedor)
+- Prueba de humo: `bash tests/smoke.sh` (arranque, datos y sintaxis PHP)
 
 ## 3. Estructura de código
 
@@ -45,6 +46,8 @@ specs/
 sql/
   schema.sql         tablas: usuarios, categorias, actividades, reservas
   datos.sql          4 categorías y 12 actividades
+tests/
+  smoke.sh           prueba de humo: levanta Docker y comprueba arranque, datos y sintaxis
 src/                 RAÍZ WEB (DocumentRoot): aquí vive todo el código servido
   includes/
     db.php           ÚNICO lugar que crea la conexión PDO
@@ -138,6 +141,7 @@ Están en **`constitution.md`**. Léelas antes de empezar cualquier tarea.
 - Comprueba cada página nueva usando solo el teclado.
 
 ### Pruebas manuales
+- Prueba rápida antes de tocar código: `bash tests/smoke.sh` (levanta Docker y comprueba arranque, datos de ejemplo y sintaxis PHP).
 - Antes de dar una tarea por hecha, prueba el caso feliz y cada caso límite de su RF.
 - Recorrido completo de control: registro → login → inicio → categoría → reservar → mis reservas → perfil → cerrar sesión.
 - Usa solo los datos de ejemplo de `sql/datos.sql`; nunca datos reales de personas.
