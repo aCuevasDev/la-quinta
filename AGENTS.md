@@ -48,6 +48,7 @@ sql/
   datos.sql          4 categorías y 12 actividades
 tests/
   smoke.sh           prueba de humo: levanta Docker y comprueba arranque, datos y sintaxis
+assets/              referencias y bocetos (capturas del diseño); NO se sirve por web
 src/                 RAÍZ WEB (DocumentRoot): aquí vive todo el código servido
   includes/
     db.php           ÚNICO lugar que crea la conexión PDO
@@ -55,7 +56,10 @@ src/                 RAÍZ WEB (DocumentRoot): aquí vive todo el código servid
     cabecera.php     cabecera y navegación comunes
     pie.php          pie común
     funciones.php    utilidades (escapar, validar, mensajes, fechas)
-  css/  js/  img/
+  css/
+    estilos.css      hoja de estilos única (identidad visual, RNF-09)
+    fuentes/         Arimo e Inter autoalojadas (woff2, subset latin)
+  js/  img/
   index.php  login.php  registro.php  logout.php
   inicio.php  categoria.php  reserva.php
   mis_reservas.php  perfil.php  quienes_somos.php
