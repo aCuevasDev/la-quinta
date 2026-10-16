@@ -108,6 +108,7 @@ El proyecto original de La Quinta era más ambicioso (pagos, roles, datos de sal
 | D9 | No se piden ni guardan datos de salud ni datos sensibles | Reduce el riesgo; si se añadieran en el futuro habría que rehacer la seguridad |
 | D10 | Mejora opcional: token CSRF en los formularios | Se valorará si hay tiempo en F6 |
 | D11 | Ejecución con **Docker Compose** (PHP 8 + Apache y MySQL 8) | Entorno reproducible con un solo comando (`docker compose up -d`); evita depender de XAMPP y de lo instalado en cada máquina. Ver RNF-06 y RNF-07 |
+| D12 | **Rediseño visual (F7):** se adopta el lenguaje visual del diseño de Figma (turquesa `#00a7b5`, naranja, texto `#101828`, Arimo/Inter autoalojadas, tarjetas con sombra y radio 16, cabecera blanca con sombra, pie en columnas) sobre las clases que ya existen, sin cambiar el marcado salvo cabecera y pie | Da una identidad visual propia sin rehacer el código. **Se descarta** el layout absoluto del export (anchos fijos de 1528 px, alturas fijas, `position: absolute`) y los elementos sin datos detrás (hero, galería, precios, valoraciones, calendario, 404/500). **Los mínimos de accesibilidad (RNF-01) prevalecen** sobre el diseño: el botón naranja pasa a `#c2410c` para que el texto blanco cumpla contraste. Ver RNF-09 |
 
 ## 5. Fases
 

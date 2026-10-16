@@ -81,3 +81,10 @@ Si una tarea queda a medias, añade debajo una línea `  - Notas: qué está hec
 - [ ] F6-08 · Commit final y Pull Request o entrega con el repositorio limpio → `AGENTS` §5 · rama principal con todo y sin archivos de prueba
 
 **Definición de Hecho F6:** la web cumple todos los RF de `specs/spec001-mvp/spec.md`, spec y código están sincronizados y el proyecto está entregado en Git.
+
+## F7 · Rediseño visual (Figma)
+- [x] F7-01 · Autoalojar las fuentes Arimo e Inter en `src/css/fuentes/` (woff2) y cargarlas con `@font-face` (`font-display: swap` y vuelta al sistema) → RNF-01, RNF-09 · las páginas usan Arimo; sin conexión se ve Arial y nada se rompe
+- [x] F7-02 · Reescribir `src/css/estilos.css` con los tokens del diseño (turquesa `#00a7b5`, fondo `#f9fafb`, texto `#101828`, radios 10/16, sombras) sobre las clases actuales, con botón `#c2410c` y textos ≥ 18 px → RNF-01, RNF-02, RNF-09, `constitution` regla 10 · las 9 páginas se ven con el nuevo estilo y cumplen 18 px / interlineado 1,5 / controles ≥ 48 px / contraste AA / foco visible
+- [x] F7-03 · Ajustar `src/includes/cabecera.php` (marca y sombra) y `src/includes/pie.php` (pie en columnas) al diseño → RF-20, RNF-09 · cabecera y pie se ven coherentes en las 9 páginas
+
+**Definición de Hecho F7:** `bash tests/smoke.sh` en verde, la tabla de contraste no tiene fallos AA y el recorrido completo se hace solo con teclado.

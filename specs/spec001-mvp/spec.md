@@ -63,6 +63,7 @@
 - **RNF-06 (ejecución con Docker):** EL SISTEMA incluirá un `Dockerfile` y un `docker-compose.yml` que levanten la web (PHP 8 + Apache) y su base de datos (MySQL 8) con un solo comando (`docker compose up -d`), sin instalar PHP ni MySQL en la máquina anfitriona, y quedará accesible en `http://localhost:8000`.
 - **RNF-07 (base de datos reproducible):** AL arrancar el contenedor por primera vez, EL SISTEMA creará la base de datos e importará `sql/schema.sql` y `sql/datos.sql` automáticamente, de modo que `docker compose down -v && docker compose up -d` deje el sistema listo para usarse.
 - **RNF-08 (estructura):** EL SISTEMA tendrá todo su código en la carpeta `src/` (páginas, `includes/`, `css/`, `js/` e `img/`), que será la raíz web (DocumentRoot). `sql/`, `specs/` y `docs/` quedarán fuera de la web. Las URLs no cambian (`http://localhost:8000/login.php`).
+- **RNF-09 (identidad visual):** EL SISTEMA usará la paleta y la tipografía del diseño (turquesa `#00a7b5`, naranja, texto `#101828`, fuentes Arimo e Inter servidas desde el propio sitio) manteniendo la misma pantalla en las 9 páginas. Los mínimos de accesibilidad de RNF-01 prevalecen siempre sobre el diseño.
 
 ### 2.3 Casos límite
 
@@ -142,6 +143,7 @@ Mientras no se cierren, se aplica el valor por defecto indicado. **La IA no debe
 | RNF-01 a RNF-05 | F0-04, F0-06, F6-01, F6-03, F6-04 |
 | RNF-06, RNF-07  | F0-03, F1-02, F1-03               |
 | RNF-08          | F0-02, F0-03                      |
+| RNF-09          | F7-01, F7-02, F7-03               |
 | CL-01 a CL-11   | F6-02                             |
 
 ---
@@ -180,4 +182,5 @@ Se rellena al final (tarea F6-05 y F6-07). Marca `[x]` cuando el requisito se ha
 | RNF-06 | `docker compose up -d` levanta web y base de datos y se abre `http://localhost:8000` | [ ] |
 | RNF-07 | Tras `docker compose down -v && docker compose up -d`, la base de datos tiene las 4 tablas y las 12 actividades | [ ] |
 | RNF-08 | El código está en `src/`, las páginas se sirven en `http://localhost:8000/login.php` y `sql/`, `specs/` y `docs/` dan error por HTTP | [ ] |
+| RNF-09 | Las 9 páginas usan la paleta y las fuentes del diseño, con los mínimos de accesibilidad intactos | [ ] |
 | CL-01 a CL-10 | Cada caso límite se prueba y se comporta como indica la tabla del apartado 2.3 | [ ] |
